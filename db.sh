@@ -346,7 +346,7 @@ if ( [ "`/bin/grep 'ClientAliveInterval 200' /etc/ssh/sshd_config 2>/dev/null`" 
 then
     /bin/echo "
 ClientAliveInterval 200
-    ClientAliveCountMax 10" >> /etc/ssh/sshd_config
+ClientAliveCountMax 10" >> /etc/ssh/sshd_config
 fi
 
 /usr/sbin/service sshd restart
