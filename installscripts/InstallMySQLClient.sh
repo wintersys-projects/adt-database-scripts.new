@@ -54,7 +54,7 @@ then
        # DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}
        # /bin/rm ${mysql_apt_config}
         ${HOME}/installscripts/Update.sh ${BUILDOS}
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=69 -qq -y install mysql-client
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=69 -qq -y install default-mysql-client
     fi
 
     if ( [ "${BUILDOS}" = "debian" ] )
@@ -65,6 +65,6 @@ then
       #  DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}
       #  /bin/rm ${mysql_apt_config}
         ${HOME}/installscripts/Update.sh ${BUILDOS}
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60 -qq -y install mysql-client
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60 -qq -y install default-mysql-client
     fi
 fi
