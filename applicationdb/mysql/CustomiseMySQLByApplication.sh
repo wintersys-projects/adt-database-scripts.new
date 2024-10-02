@@ -51,6 +51,8 @@ then
     fi
 fi
 
+/usr/bin/head -n3 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
+
 if ( [ "`/usr/bin/head -n1 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /bin/grep sandbox`" != "" ] )
 then
     /bin/sed -i '1d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
