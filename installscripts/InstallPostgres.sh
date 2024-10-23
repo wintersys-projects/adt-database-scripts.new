@@ -34,11 +34,6 @@ then
     apt="/usr/sbin/apt-fast"
 fi
 
-if ( [ "`/bin/ps -ef | /bin/grep postgres`" != "" ] )
-then
-    /usr/sbin/service postgresql stop
-fi
-
 if ( [ "${apt}" != "" ] )
 then
     if ( [ "${buildos}" = "ubuntu" ] )
