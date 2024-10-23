@@ -44,7 +44,7 @@ then
         ${HOME}/installscripts/Update.sh ${buildos}
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
-        version="`/bin/ls /etc/postgresql/`"
+        version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
         /usr/sbin/service postgresql restart
     fi
@@ -57,7 +57,7 @@ then
         ${HOME}/installscripts/Update.sh ${buildos}
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
-        version="`/bin/ls /etc/postgresql/`"
+        version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
         /usr/sbin/service postgresql restart
     fi
