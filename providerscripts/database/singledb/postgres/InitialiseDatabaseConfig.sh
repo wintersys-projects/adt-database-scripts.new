@@ -34,7 +34,7 @@ DB_N="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "crede
 DB_P="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 2`"
 DB_U="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 3`"
 
-postgres_config="`/usr/bin/find / -name pg_hba.conf -print`"
+postgres_config="`/usr/bin/find / -name pg_hba.conf -print | /usr/bin/tail -1`"
 
 running="0"
    
