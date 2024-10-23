@@ -36,13 +36,9 @@ fi
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Postgres`" = "1" ] )
 then
-    postgres_config="`/usr/bin/find / -name pg_hba.conf -print`"
-    postgres_pid="`/usr/bin/find / -name postmaster.pid -print`"
-    postgres_sql_config="`/usr/bin/find / -name postgresql.conf -print | /bin/grep etc`"
-    if ( [ "${postgres_sql_config}" = "" ] )
-    then
-        postgres_sql_config="`/usr/bin/find / -name postgresql.conf -print`"
-    fi
+    postgres_config="`/usr/bin/find / -name pg_hba.conf -print | /usr/bin/tail -1`"
+    postgres_pid="`/usr/bin/find / -name postmaster.pid -print | /usr.bin/tail -1`"
+    postgres_sql_config="`/usr/bin/find / -name postgresql.conf -print | /bin/grep etc | /usr/bin/tail -1`"
 
     /bin/rm ${postgres_pid}
     /bin/sed -i "/listen_addresses/c\        listen_addresses = '*'" ${postgres_sql_config}
