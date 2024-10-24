@@ -41,7 +41,7 @@ then
     then    
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
-        /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
 
         
@@ -57,11 +57,15 @@ then
     fi
   
     if ( [ "${buildos}" = "debian" ] && [ ! -f /usr/lib/postgresql ] )
-    then      
+    then   
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
-        /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
+        #version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
+        #DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
+        #/usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        #DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
         
       #  /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
       #  /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list
