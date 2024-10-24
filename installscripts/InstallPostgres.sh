@@ -37,15 +37,21 @@ fi
 if ( [ "${apt}" != "" ] )
 then
     #For postgres if it is already installed on the OS we default to the installed version otherwise we install the user's requested version
-    if ( [ "${buildos}" = "ubuntu" ] && [ ! -f /usr/lib/postgresql ] )
+    if ( [ "${buildos}" = "ubuntu" ] )
     then    
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
-        /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
-        /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list
-        ${HOME}/installscripts/Update.sh ${buildos}
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
-        version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
+        /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
+
+        
+       
+       # /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
+       # /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list
+       # ${HOME}/installscripts/Update.sh ${buildos}
+       # DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
+       # DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
+       # version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
         /usr/sbin/service postgresql restart
     fi
@@ -53,12 +59,16 @@ then
     if ( [ "${buildos}" = "debian" ] && [ ! -f /usr/lib/postgresql ] )
     then      
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
-        /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
-        /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list
-        ${HOME}/installscripts/Update.sh ${buildos}
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
-        version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
+        /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
+        
+      #  /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
+      #  /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list
+      #  ${HOME}/installscripts/Update.sh ${buildos}
+      #  DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-`/bin/echo ${version} | /usr/bin/awk -F'.' '{print $1}'`
+      #  DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-contrib
+      #  version="`/bin/ls /etc/postgresql/ | /usr/bin/tail -1`"
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
         /usr/sbin/service postgresql restart
     fi
