@@ -37,7 +37,7 @@ fi
 if ( [ "${apt}" != "" ] )
 then
     #For postgres if it is already installed on the OS we default to the installed version otherwise we install the user's requested version
-    if ( [ "${buildos}" = "ubuntu" ] && [ "`/usr/bin/find / -name postmaster.pid -print`" = "" ] )
+    if ( [ "${buildos}" = "ubuntu" ] && [ ! -f /usr/lib/postgresql ] )
     then    
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
         /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
@@ -50,7 +50,7 @@ then
         /usr/sbin/service postgresql restart
     fi
   
-    if ( [ "${buildos}" = "debian" ] && [ "`/usr/bin/find / -name postmaster.pid -print`" = "" ] )
+    if ( [ "${buildos}" = "debian" ] && [ ! -f /usr/lib/postgresql ] )
     then      
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
         /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc
