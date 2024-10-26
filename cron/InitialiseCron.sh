@@ -65,16 +65,6 @@ SERVER_TIMEZONE_CITY="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh '
 /bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/PerformSoftwareUpdate.sh" >> /var/spool/cron/crontabs/root
 
 
-if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh AUTHORISATIONSERVER:2`" = "1" ] )
-then
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && /bin/sleep 10 && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && /bin/sleep 20 && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && /bin/sleep 30 && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && /bin/sleep 40 && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-    /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && /bin/sleep 50 && ${HOME}/security/ListAuthorisationIPs.sh" >> /var/spool/cron/crontabs/root
-fi
-
 if ( [ -f ${HOME}/runtime/POSTGRES_FROM_SOURCE ] )
 then
     /bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/database/singledb/postgres/InitialiseDatabaseConfig.sh" >> /var/spool/cron/crontabs/root
