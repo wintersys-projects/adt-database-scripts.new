@@ -49,13 +49,6 @@ then
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "MARIADB" | /usr/bin/awk -F':' '{print $NF}'`"
         /usr/bin/curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-${version}"
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60  -qq -y install mariadb-client 
-    
-        if ( [ -f /usr/bin/mysql ] )
-        then
-            /bin/rm /usr/bin/mysql
-        fi
-    
-        /bin/ln -s /usr/bin/mariadb /usr/bin/mysql
     fi
 
     if ( [ "${BUILDOS}" = "debian" ] )
@@ -63,15 +56,5 @@ then
         version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "MARIADB" | /usr/bin/awk -F':' '{print $NF}'`"
         /usr/bin/curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-${version}"
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60  -qq -y install mariadb-client 
-    
-        if ( [ -f /usr/bin/mysql ] )
-        then
-            /bin/rm /usr/bin/mysql
-        fi
-        
-        /bin/rm /usr/bin/mysql
-        /bin/rm /usr/bin/mysqldump
-        /bin/ln -s /usr/bin/mariadb /usr/bin/mysql
-        /bin/ln -s /usr/bin/mariadb-dump /usr/bin/mysqldump
     fi
 fi
