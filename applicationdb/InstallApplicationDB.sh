@@ -91,7 +91,10 @@ then
     BUILD_IDENTIFIER="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BUILDIDENTIFIER'`"
 fi
 
-/bin/rm -r /installer
+if ( [ -d /installer ] )
+then
+    /bin/rm -r /installer
+fi
 
 if ( [ ! -d /installer/${BUILD_ARCHIVE_CHOICE} ] )
 then
