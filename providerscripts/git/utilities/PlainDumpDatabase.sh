@@ -21,6 +21,13 @@
 #######################################################################################################
 #set -x
 
+if ( [ -f /usr/bin/mariadb-dump ] )
+then
+        mysql_dump="/usr/bin/mariadb-dump"
+else
+        mysql_dump="/usr/bin/mysqldump"
+fi
+
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:DBaaS`" = "1" ] )
 then
     HOST="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'DBaaSHOSTNAME'`"
@@ -33,12 +40,12 @@ if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLAT
 then    
     /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
     tries="1"
-    /usr/bin/mysqldump --lock-tables=false  --no-tablespaces -y  --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+    ${mysql_dump} --lock-tables=false  --no-tablespaces -y  --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     while ( [ "$?" != "0"  ] && [ "${tries}" -lt "5" ] )
     do
         /bin/sleep 10
         tries="`/usr/bin/expr ${tries} + 1`"
-        /usr/bin/mysqldump --lock-tables=false  --no-tablespaces -y  --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+        ${mysql_dump} --lock-tables=false  --no-tablespaces -y  --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     done
     
     if ( [ "${tries}" = "5" ] )
@@ -56,12 +63,12 @@ if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLAT
 then
     /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
     tries="1"
-    /usr/bin/mysqldump --lock-tables=false --no-tablespaces -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+    ${mysql_dump} --lock-tables=false --no-tablespaces -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     while ( [ "$?" != "0"  ] && [ "${tries}" -lt "5" ] )
     do
         /bin/sleep 10
         tries="`/usr/bin/expr ${tries} + 1`"
-        /usr/bin/mysqldump --lock-tables=false --no-tablespaces -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+        ${mysql_dump} --lock-tables=false --no-tablespaces -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     done
     
     if ( [ "${tries}" = "5" ] )
