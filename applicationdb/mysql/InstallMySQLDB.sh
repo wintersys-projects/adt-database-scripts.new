@@ -39,7 +39,7 @@ then
     if ( [ "`/bin/grep 'sandbox mode' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql`" != "" ] )
     then
         /usr/bin/tail -n +2 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/tee ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp 
-        /bin/mv ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
+      #  /bin/mv ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
     fi
 
     currentengine="`/bin/grep ENGINE= ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/awk -F' ' '{print $2}' | /usr/bin/head -1`"
