@@ -62,6 +62,8 @@ then
         fi
     fi
 
+    /bin/sleep 1000
+
     #Not sure why but sometimes installation of the application is truncated leaving only a partial set of tables installed
     #so try installing it several in the hope that one succeeds
 
