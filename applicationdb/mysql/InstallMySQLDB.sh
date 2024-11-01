@@ -38,7 +38,7 @@ if ( [ -f ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql ] )
 then
     if ( [ "`/bin/grep 'sandbox mode' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql`" != "" ] )
     then
-        /usr/bin/tail -n +2 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql > ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp 
+        /usr/bin/tail -n +2 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/tee ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp 
         /bin/mv ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
     fi
 
