@@ -36,18 +36,13 @@ fi
 
 if ( [ -f ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql ] )
 then
-    if ( [ "`/bin/grep 'sandbox mode' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql`" != "" ] )
-    then
-        /usr/bin/tail -n +2 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/tee ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp 
-      #  /bin/mv ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
-    fi
-
     currentengine="`/bin/grep ENGINE= ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/awk -F' ' '{print $2}' | /usr/bin/head -1`"
     # We are a mysql cluster so we need to use NDB engine type the way to do this is to modify the dump file
     /bin/sed -i "s/${currentengine}/ENGINE=INNODB /g" ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
     
     if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] )
     then
+        /bin/sed -i 's/.*enable sandbox mode.*//g' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/SESSION.SQL_LOG_BIN/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/GTID_PURGED/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/sql_require_primary_key/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
