@@ -26,6 +26,13 @@
 ###################################################################################set -x
 #set -x
 
+if ( [ -f /usr/bin/mariadb ] )
+then
+        mysql="/usr/bin/mariadb"
+else
+        mysql="/usr/bin/mysql"
+fi
+
 DB_N="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 1`"
 DB_P="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 2`"
 DB_U="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 3`"
@@ -40,7 +47,7 @@ then
     for webserverip in `${HOME}/providerscripts/datastore/configwrapper/ListFromConfigDatastore.sh "webserverips/*"`
     do
         ip_mask="`/bin/echo ${webserverip} | /usr/bin/cut -d "." -f -2`.%.%"
-        /usr/bin/mysql -u ${DB_U} -p${DB_P} -e "GRANT ALL PRIVILEGES ON ${DB_N}.* TO \"${DB_U}\"@\"${ip_mask}\" IDENTIFIED BY \"${DB_P}\" WITH GRANT OPTION;"
+        ${mysql} -u ${DB_U} -p${DB_P} -e "GRANT ALL PRIVILEGES ON ${DB_N}.* TO \"${DB_U}\"@\"${ip_mask}\" IDENTIFIED BY \"${DB_P}\" WITH GRANT OPTION;"
     done
 fi
 
