@@ -21,6 +21,13 @@
 #######################################################################################################
 #set -x
 
+if ( [ -f /usr/bin/mariadb-dump ] )
+then
+        mysql_dump="/usr/bin/mariadb-dump"
+else
+        mysql_dump="/usr/bin/mysqldump"
+fi
+
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:DBaaS`" = "1" ] )
 then
     HOST="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'DBaaSHOSTNAME'`"
@@ -46,7 +53,7 @@ fi
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Maria`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:Maria`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ]  )
 then
     #Dump the database to an sql file
-    if ( [ "`/usr/bin/mysql -A -u ${DB_U} -p${DB_P} ${DB_N} --host="${HOST}" --port="${DB_PORT}" -e 'show tables' | /usr/bin/wc -l`" -lt "5" ] )
+    if ( [ "`${mysql_dump} -A -u ${DB_U} -p${DB_P} ${DB_N} --host="${HOST}" --port="${DB_PORT}" -e 'show tables' | /usr/bin/wc -l`" -lt "5" ] )
     then
         /bin/echo "${0} `/bin/date`: Failed to backup database, it seems like the tables are not there" >> ${HOME}/logs/OPERATIONAL_MONITORING.log
         exit
@@ -56,12 +63,12 @@ then
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     
     tries="1"
-    /usr/bin/mysqldump --lock-tables=false  --no-tablespaces -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+    ${mysql_dump} --lock-tables=false  --no-tablespaces -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     while ( [ "$?" != "0"  ] && [ "${tries}" -lt "5" ] )
     do
         /bin/sleep 10
         tries="`/usr/bin/expr ${tries} + 1`"
-        /usr/bin/mysqldump --lock-tables=false  --no-tablespaces -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
+        ${mysql_dump} --lock-tables=false  --no-tablespaces -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     done
     
     if ( [ "${tries}" = "5" ] )
