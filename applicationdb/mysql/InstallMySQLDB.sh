@@ -42,7 +42,7 @@ then
     
     if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] )
     then
-        /bin/sed -i 's/.*enable sandbox mode.*//g' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
+        /bin/sed -i 's/.*enable the sandbox mode.*//g' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/SESSION.SQL_LOG_BIN/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/GTID_PURGED/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
         /bin/sed -i '/sql_require_primary_key/d' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
