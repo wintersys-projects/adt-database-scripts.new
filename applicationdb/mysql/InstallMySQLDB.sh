@@ -36,6 +36,11 @@ fi
 
 if ( [ -f ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql ] )
 then
+    if ( [ "`/bin/grep 'sandbox mode' ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql`" != "" ] )
+    then
+        /usr/bin/tail -n +2 ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql > ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp && /bin/mv ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql.tmp ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
+    fi
+
     currentengine="`/bin/grep ENGINE= ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql | /usr/bin/awk -F' ' '{print $2}' | /usr/bin/head -1`"
     # We are a mysql cluster so we need to use NDB engine type the way to do this is to modify the dump file
     /bin/sed -i "s/${currentengine}/ENGINE=INNODB /g" ${HOME}/backups/installDB/${WEBSITE_NAME}DB.sql
@@ -62,7 +67,6 @@ then
         fi
     fi
 
-    /bin/sleep 1000
 
     #Not sure why but sometimes installation of the application is truncated leaving only a partial set of tables installed
     #so try installing it several in the hope that one succeeds
