@@ -73,22 +73,22 @@ then
     /bin/sed -i '/drop user/d' ${HOME}/runtime/initialiseDB.sql
     /bin/sed -i '/CREATE USER/d' ${HOME}/runtime/initialiseDB.sql
     
-    /usr/bin/mysql -f -A -u ${DB_U} -p${DB_P} --host="${HOST}" --port="${DB_PORT}" < ${HOME}/runtime/initialiseDB.sql
+    /usr/bin/mariadb -f -A -u ${DB_U} -p${DB_P} --host="${HOST}" --port="${DB_PORT}" < ${HOME}/runtime/initialiseDB.sql
     
     while ( [ "$?" != "0" ] && [ "${count}" -lt "10" ] )
     do
         /bin/sleep 30
         count="`/usr/bin/expr ${count} + 1`"
-        /usr/bin/mysql -f -A -u ${DB_U} -p${DB_P} --host="${HOST}" --port="${DB_PORT}" < ${HOME}/runtime/initialiseDB.sql
+        /usr/bin/mariadb -f -A -u ${DB_U} -p${DB_P} --host="${HOST}" --port="${DB_PORT}" < ${HOME}/runtime/initialiseDB.sql
     done
 else
     /usr/sbin/service mariadb start
     #try with no password set
-    /usr/bin/mysql -A < ${HOME}/runtime/initialiseDB.sql
+    /usr/bin/mariadb -A < ${HOME}/runtime/initialiseDB.sql
     #make sure by trying with password
     if ( [ "$?" != "0" ] )
     then
-       /usr/bin/mysql -A --force -u root -p${DB_P} < ${HOME}/runtime/initialiseDB.sql
+       /usr/bin/mariadb -A --force -u root -p${DB_P} < ${HOME}/runtime/initialiseDB.sql
     fi
 fi
 
