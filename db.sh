@@ -188,8 +188,8 @@ ${HOME}/installscripts/InstallLibnetSSLLeay.sh ${BUILDOS}
 ${HOME}/installscripts/InstallSendEmail.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallSysStat.sh"
 ${HOME}/installscripts/InstallSysStat.sh ${BUILDOS}
->&2 /bin/echo "${0} InstallUFW.sh"
-${HOME}/installscripts/InstallUFW.sh ${BUILDOS}
+>&2 /bin/echo "${0} InstallFirewall.sh"
+${HOME}/installscripts/InstallFirewall.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallRsync.sh"
 ${HOME}/installscripts/InstallRsync.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallJQ.sh"
