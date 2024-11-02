@@ -24,6 +24,8 @@ then
 	buildos="${1}"
 fi
 
+HOME="`/bin/cat /home/homedir.dat`"
+
 apt=""
 if ( [ "`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "PACKAGEMANAGER" | /usr/bin/awk -F':' '{print $NF}'`" = "apt" ] )
 then
@@ -38,7 +40,7 @@ then
 	if ( [ "${buildos}" = "ubuntu" ] )
 	then
 		DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install iptables
-  	DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install iptables-persistent
+		DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install iptables-persistent
 	fi
 
 	if ( [ "${buildos}" = "debian" ] )
