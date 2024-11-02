@@ -214,15 +214,6 @@ then
     export TZ=":${SERVER_TIMEZONE_CONTINENT}/${SERVER_TIMEZONE_CITY}"
 fi
 
-#Some rudimentary checks to ensure that the software is installed
-if ( [ -f /usr/bin/sendemail ] && [ -f /usr/bin/curl ] )
-then
-    /bin/echo "${0} `/bin/date` : It looks like all the required software was installed correctly" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
-else
-    /bin/echo "${0} `/bin/date` : It looks like all the required software wasn't installed correctly" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
-    exit
-fi
-
 /bin/mkdir -p ${HOME}/credentials
 /bin/chmod 700 ${HOME}/credentials
 
