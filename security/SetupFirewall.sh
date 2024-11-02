@@ -57,6 +57,7 @@ then
     then
         /bin/touch ${HOME}/runtime/FIREWALL-ACTIVE
     fi
+    /usr/sbin/ufw logging off
 fi
 
 DB_PORT="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'DBPORT'`"
