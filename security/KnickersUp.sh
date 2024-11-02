@@ -40,6 +40,9 @@ then
 	elif ( [ "${firewall}" = "iptables" ] )
  	then
  		/usr/sbin/iptables -A INPUT -j DROP
+		/usr/sbin/iptables -N adt-database
+		/usr/sbin/iptables -A INPUT -p icmp -J ACCEPT
+		/usr/sbin/iptables -A INPUT -s 127.0.0.1/32 -j ACCEPT
 		/usr/sbin/netfilter-persistent save
 	fi
  
