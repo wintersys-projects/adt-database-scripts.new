@@ -122,8 +122,8 @@ then
         then
         	/usr/sbin/iptables -I INPUT -s 10.116.0.0/24 -p tcp --dport ${SSH_PORT} -j ACCEPT
 	        /usr/sbin/iptables -I INPUT -s 10.116.0.0/24 -p tcp --dport ${DB_PORT} -j ACCEPT
-			/usr/sbin/iptables -I INPUT -s 10.116.0.0/24 -p ICMP --icmp-type 8 -j ACCEPT
-			updated="1"
+		/usr/sbin/iptables -I INPUT -s 10.116.0.0/24 -p ICMP --icmp-type 8 -j ACCEPT
+		updated="1"
         fi
     fi
 fi
@@ -145,8 +145,8 @@ then
         then
         	/usr/sbin/iptables -I INPUT -s 10.0.0.0/24 -p tcp --dport ${SSH_PORT} -j ACCEPT
 	        /usr/sbin/iptables -I INPUT -s 10.0.0.0/24 -p tcp --dport ${DB_PORT} -j ACCEPT
-			/usr/sbin/iptables -I INPUT -s 10.0.0.0/24 -p ICMP --icmp-type 8 -j ACCEPT
-			updated="1"
+		/usr/sbin/iptables -I INPUT -s 10.0.0.0/24 -p ICMP --icmp-type 8 -j ACCEPT
+		updated="1"
         fi
     fi
 fi
@@ -168,8 +168,8 @@ then
         then
         	/usr/sbin/iptables -I INPUT -s 10.0.1.0/24 -p tcp --dport ${SSH_PORT} -j ACCEPT
 	        /usr/sbin/iptables -I INPUT -s 10.0.1.0/24 -p tcp --dport ${DB_PORT} -j ACCEPT
-			/usr/sbin/iptables -I INPUT -s 10.0.1.0/24 -p ICMP --icmp-type 8 -j ACCEPT
-			updated="1"
+		/usr/sbin/iptables -I INPUT -s 10.0.1.0/24 -p ICMP --icmp-type 8 -j ACCEPT
+		updated="1"
         fi
     fi
 fi
@@ -191,8 +191,8 @@ then
         then
         	/usr/sbin/iptables -I INPUT -s 192.168.0.0/16 -p tcp --dport ${SSH_PORT} -j ACCEPT
 	        /usr/sbin/iptables -I INPUT -s 192.168.0.0/16 -p tcp --dport ${DB_PORT} -j ACCEPT
-			/usr/sbin/iptables -I INPUT -s 192.168.0.0/16 -p ICMP --icmp-type 8 -j ACCEPT
-			updated="1"
+		/usr/sbin/iptables -I INPUT -s 192.168.0.0/16 -p ICMP --icmp-type 8 -j ACCEPT
+		updated="1"
         fi
     fi
 fi
@@ -203,10 +203,10 @@ then
         then
                 /usr/sbin/ufw -f enable
                 /usr/sbin/ufw reload
-                /usr/sbin/service networking restart
+		${HOME}/providerscripts/utilities/RunServiceCommand.sh networking restart
         elif ( [ "${firewall}" = "iptables" ] )
         then
-                /usr/sbin/service netfilter-persistent save
+		${HOME}/providerscripts/utilities/RunServiceCommand.sh netfilter-persistent save
         fi
 fi
 
