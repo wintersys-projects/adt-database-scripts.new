@@ -295,14 +295,14 @@ fi
 
 #Double down on preventing logins as root. We already tried, but, make absolutely sure because we can't guarantee format of /etc/ssh/sshd_config
 
-if ( [ -f /etc/systemd/system/ssh.service.d/00-socket.conf ] )
-then
-    /bin/rm /etc/systemd/system/ssh.service.d/00-socket.conf
-    /bin/systemctl daemon-restart
-fi
+#if ( [ -f /etc/systemd/system/ssh.service.d/00-socket.conf ] )
+#then
+#    /bin/rm /etc/systemd/system/ssh.service.d/00-socket.conf
+#    /bin/systemctl daemon-restart
+#fi
 
-/bin/systemctl disable --now ssh.socket
-/bin/systemctl enable --now ssh.service
+#/bin/systemctl disable --now ssh.socket
+#/bin/systemctl enable --now ssh.service
 
 if ( [ "`/bin/grep '^#Port' /etc/ssh/sshd_config`" != "" ] || [ "`/bin/grep '^Port' /etc/ssh/sshd_config`" != "" ] )
 then
@@ -364,7 +364,7 @@ ClientAliveInterval 200
 ClientAliveCountMax 10" >> /etc/ssh/sshd_config
 fi
 
-/usr/sbin/service ssh restart
+${HOME}/providerscripts/utilities/RunServiceCommand.sh ssh restart
 
 #Set userallow for fuse
 /bin/sed -i 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf
