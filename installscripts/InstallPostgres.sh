@@ -44,7 +44,7 @@ then
         /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
-        /usr/sbin/service postgresql restart
+        ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart
     fi
   
     if ( [ "${buildos}" = "debian" ] && [ ! -f /usr/lib/postgresql ] )
@@ -54,7 +54,7 @@ then
         /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
-        /usr/sbin/service postgresql restart
+        ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart
     fi
 fi
 
