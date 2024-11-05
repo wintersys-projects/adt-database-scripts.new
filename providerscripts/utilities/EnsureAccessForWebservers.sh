@@ -61,13 +61,15 @@ then
 
         if ( [ "`/bin/grep ${DB_N} ${postgres_config} | /bin/grep ${ip_mask}`" = "" ] )
         then
-            ip_mask="`/bin/echo ${webserverip} | /usr/bin/cut -d "." -f -2`"
-            /bin/echo "host       ${DB_N}              ${DB_U}            ${ip_mask}.0.0/0          md5" >> ${postgres_config}
-            /usr/sbin/service postgresql reload
-            if ( [ "$?" != "0" ] )
-            then
-                /usr/bin/su postgres -c "/usr/local/pgsql/bin/pg_ctl reload -D /usr/local/pgsql/data/ -l /home/postgres/logfile"   
-            fi
+                ip_mask="`/bin/echo ${webserverip} | /usr/bin/cut -d "." -f -2`"
+                /bin/echo "host       ${DB_N}              ${DB_U}            ${ip_mask}.0.0/0          md5" >> ${postgres_config}
+                
+                ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql reload
+
+                if ( [ "$?" != "0" ] )
+                then
+                        /usr/bin/su postgres -c "/usr/local/pgsql/bin/pg_ctl reload -D /usr/local/pgsql/data/ -l /home/postgres/logfile"   
+                fi
         fi
     done
 fi
