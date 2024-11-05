@@ -62,9 +62,9 @@ elif ( [ "${firewall}" = "iptables" ] )
 then
         if ( [ -f ${HOME}/runtime/FIREWALL-ACTIVE ] )
         then
-                if ( [ "`/usr/sbin/service netfilter-persistent status | /bin/grep Loaded | /bin/grep enabled`" != "" ] )
+                if ( [ "`${HOME}/providerscripts/utilities/RunServiceCommand.sh netfilter-persistent status | /bin/grep Loaded | /bin/grep enabled`" != "" ] )
                 then
-                        if ( [ "`/usr/sbin/service netfilter-persistent status | /bin/grep active`" != "" ] )
+                        if ( [ "`${HOME}/providerscripts/utilities/RunServiceCommand.sh netfilter-persistent status | /bin/grep active`" != "" ] )
                         then
                                 exit
                         fi
@@ -218,9 +218,9 @@ then
         fi
 elif ( [ "${firewall}" = "iptables" ] )
 then
-        if ( [ "`/usr/sbin/service netfilter-persistent status | /bin/grep Loaded | /bin/grep enabled`" != "" ] )
+        if ( [ "`${HOME}/providerscripts/utilities/RunServiceCommand.sh netfilter-persistent status | /bin/grep Loaded | /bin/grep enabled`" != "" ] )
         then
-                if ( [ "`/usr/sbin/service netfilter-persistent status | /bin/grep active`" != "" ] )
+                if ( [ "`${HOME}/providerscripts/utilities/RunServiceCommand.sh netfilter-persistent status | /bin/grep active`" != "" ] )
                 then
                         /bin/touch ${HOME}/runtime/FIREWALL-ACTIVE
                 fi
