@@ -29,16 +29,20 @@ file="`/bin/echo ${1} | /usr/bin/awk -F'/' '{print $NF}'`"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-        datastore_tool="/usr/bin/s3cmd"
+        datastore_tool="/usr/bin/s3cmd --force get "
+elif ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s5cmd'`" = "1" ]  )
+then
+        host_base="`/bin/grep host_base /root/.s5cfg | /bin/grep host_base | /usr/bin/awk -F'=' '{print  $NF}' | /bin/sed 's/ //g'`" 
+        datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} cp "
 fi
 
-${datastore_tool} --force get s3://${configbucket}/$1 /tmp 1>/dev/null
+${datastore_tool} s3://${configbucket}/$1 /tmp 1>/dev/null
 
 while ( [ ! -f /tmp/${file} ] && [ "${count}" -lt "10" ] )
 do
    /bin/sleep 2
    count="`/usr/bin/expr ${count} + 1`"
-   ${datastore_tool} --force get s3://${configbucket}/$1 /tmp 1>/dev/null
+   ${datastore_tool} s3://${configbucket}/$1 /tmp 1>/dev/null
 done
 
 
