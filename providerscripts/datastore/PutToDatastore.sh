@@ -26,7 +26,10 @@ datastore_to_put_in="$3"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-    /usr/bin/s3cmd --force --recursive --multipart-chunk-size-mb=5 put ${file_to_put} s3://${datastore_to_put_in}
-    file="`/bin/echo ${file_to_put} | /usr/bin/awk -F'/' '{print $NF}'`"
-    /usr/bin/s3cmd setacl s3://${datastore_to_put_in}/${file} --acl-private
+        datastore_tool="/usr/bin/s3cmd"
 fi
+
+${datastore_tool} --force --recursive --multipart-chunk-size-mb=5 put ${file_to_put} s3://${datastore_to_put_in}
+file="`/bin/echo ${file_to_put} | /usr/bin/awk -F'/' '{print $NF}'`"
+${datastore_tool} setacl s3://${datastore_to_put_in}/${file} --acl-private
+
