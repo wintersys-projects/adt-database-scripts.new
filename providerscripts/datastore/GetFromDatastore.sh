@@ -25,5 +25,8 @@ datastore_to_get="$2"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-    /usr/bin/s3cmd --force --recursive get s3://${datastore_to_get}
+        datastore_tool="/usr/bin/s3cmd"
 fi
+
+${datastore_tool} --force --recursive get s3://${datastore_to_get}
+
