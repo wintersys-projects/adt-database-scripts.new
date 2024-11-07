@@ -29,15 +29,18 @@ file="`/bin/echo ${1} | /usr/bin/awk -F'/' '{print $NF}'`"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-   /usr/bin/s3cmd --force get s3://${configbucket}/$1 /tmp 1>/dev/null
-
-   while ( [ ! -f /tmp/${file} ] && [ "${count}" -lt "10" ] )
-   do
-       /bin/sleep 2
-       count="`/usr/bin/expr ${count} + 1`"
-       /usr/bin/s3cmd --force get s3://${configbucket}/$1 /tmp 1>/dev/null
-   done
+        datastore_tool="/usr/bin/s3cmd"
 fi
+
+${datastore_tool} --force get s3://${configbucket}/$1 /tmp 1>/dev/null
+
+while ( [ ! -f /tmp/${file} ] && [ "${count}" -lt "10" ] )
+do
+   /bin/sleep 2
+   count="`/usr/bin/expr ${count} + 1`"
+   ${datastore_tool} --force get s3://${configbucket}/$1 /tmp 1>/dev/null
+done
+
 
 if ( [ "$2" = "1" ] )
 then
