@@ -26,10 +26,13 @@ datastore_to_put_in="$3"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-        datastore_tool="/usr/bin/s3cmd"
+        datastore_tool="/usr/bin/s3cmd --force --recursive --multipart-chunk-size-mb=5 put "
+elif ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s5cmd'`" = "1" ]  )
+then
+        host_base="`/bin/grep host_base /root/.s5cfg | /bin/grep host_base | /usr/bin/awk -F'=' '{print  $NF}' | /bin/sed 's/ //g'`" 
+        datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} cp "
 fi
 
-${datastore_tool} --force --recursive --multipart-chunk-size-mb=5 put ${file_to_put} s3://${datastore_to_put_in}
+${datastore_tool}  ${file_to_put} s3://${datastore_to_put_in}
 file="`/bin/echo ${file_to_put} | /usr/bin/awk -F'/' '{print $NF}'`"
-${datastore_tool} setacl s3://${datastore_to_put_in}/${file} --acl-private
 
