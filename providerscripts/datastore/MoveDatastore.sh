@@ -26,5 +26,8 @@ new_object="$3"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-    /usr/bin/s3cmd mv s3://${original_object} s3://${new_object}
+        datastore_tool="/usr/bin/s3cmd"
 fi
+    
+${datastore_tool} mv s3://${original_object} s3://${new_object}
+
