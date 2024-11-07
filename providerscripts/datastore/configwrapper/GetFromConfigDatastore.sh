@@ -27,17 +27,23 @@ configbucket="${configbucket}-config"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-        datastore_tool="/usr/bin/s3cmd"
+        datastore_tool="/usr/bin/s3cmd --force get "
+        datastore_tool_1="/usr/bin/s3cmd --force --recursive get "
+elif ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s5cmd'`" = "1" ]  )
+then
+        host_base="`/bin/grep host_base /root/.s5cfg | /bin/grep host_base | /usr/bin/awk -F'=' '{print  $NF}' | /bin/sed 's/ //g'`" 
+        datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} cp "
+        datastore_tool_1="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} cp "
 fi
 
-${datastore_tool} --force get s3://${configbucket}/$1 /tmp
+${datastore_tool} s3://${configbucket}/$1 /tmp
 
 if ( [ "$2" != "" ] )
 then
-    ${datastore_tool} --force get s3://${configbucket}/$1 $2
+    ${datastore_tool} s3://${configbucket}/$1 $2
 fi
 
 if ( [ "$3" = "recursive" ] )
 then
-    ${datastore_tool} --force --recursive get s3://${configbucket}/$1 $2 
+    ${datastore_tool_1} s3://${configbucket}/$1 $2 
 fi
