@@ -30,12 +30,15 @@ then
     /bin/echo "0"
     exit
 fi
+
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-    if ( [ "`/usr/bin/s3cmd ls s3://${configbucket}/$1`" = "" ] )
-    then
-        /bin/echo "0"
-    else
-        /bin/echo "1"
-    fi
+        datastore_tool="/usr/bin/s3cmd"
+fi
+
+if ( [ "`${datastore_tool} ls s3://${configbucket}/$1`" = "" ] )
+then
+    /bin/echo "0"
+else
+    /bin/echo "1"
 fi
