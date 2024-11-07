@@ -25,5 +25,8 @@ file_to_list="$2"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
-    /usr/bin/s3cmd --force ls s3://${file_to_list}
+        datastore_tool="/usr/bin/s3cmd"
 fi
+    
+${datastore_tool} --force ls s3://${file_to_list}
+
