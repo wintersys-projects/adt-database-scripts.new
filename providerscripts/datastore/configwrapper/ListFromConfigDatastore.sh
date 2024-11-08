@@ -34,5 +34,11 @@ then
         datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} "
 fi
 
-${datastore_tool} ls s3://${configbucket}/$1 | /usr/bin/awk -F'/' '{print $NF}' | /bin/sed '/^$/d'
+value="`${datastore_tool} ls s3://${configbucket}/$1 | /usr/bin/awk -F'/' '{print $NF}' | /bin/sed '/^$/d'`"
+if ( [ "`/bin/echo ${value} | /usr/bin/wc -w`" != "1" ] )
+then
+        ${datastore_tool} ls s3://${configbucket}/$1 | /usr/bin/awk -F' ' '{print $NF}' | /bin/sed '/^$/d'
+else
+        /bin/echo ${value}
+fi
 
