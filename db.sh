@@ -236,7 +236,7 @@ cd ${HOME}
 /bin/echo "${0} `/bin/date`: Setting up datastore tools" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-. ${HOME}/installscripts/InstallDatastoreTools.sh
+#. ${HOME}/installscripts/InstallDatastoreTools.sh
 . ${HOME}/providerscripts/datastore/InitialiseDatastoreConfig.sh
 
 cd ${HOME}
@@ -258,7 +258,7 @@ cd ${HOME}
 
 
 #Initialise the database
-. ${HOME}/providerscripts/database/singledb/InstallSingleDB.sh ${DATABASE_INSTALLATION_TYPE}
+#. ${HOME}/providerscripts/database/singledb/InstallSingleDB.sh ${DATABASE_INSTALLATION_TYPE}
 
 BYPASS_DB_LAYER="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BYPASSDBLAYER'`"
 
