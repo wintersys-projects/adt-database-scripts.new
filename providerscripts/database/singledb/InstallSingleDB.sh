@@ -24,6 +24,7 @@
 if ( [ ! -d ${HOME}/credentials ] )
 then
         /bin/mkdir ${HOME}/credentials
+        /bin/chmod 700 ${HOME}/credentials
 fi
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:DBaaS`" = "1" ] )
