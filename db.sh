@@ -173,7 +173,7 @@ kernel.panic=10" >> /etc/sysctl.conf
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 #Update and upgrade the software to its latest available versions
 
-. ${HOME}/installscripts/InstallALL.sh 
+. ${HOME}/installscripts/InstallAll.sh 
 
 
 #>&2 /bin/echo "${0} Update.sh"
