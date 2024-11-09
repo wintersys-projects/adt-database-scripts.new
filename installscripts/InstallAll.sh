@@ -25,3 +25,8 @@ ${HOME}/installscripts/InstallCron.sh ${BUILDOS}
 ${HOME}/installscripts/InstallGo.sh ${BUILDOS}
 
 ${HOME}/installscripts/InstallMonitoringGear.sh
+
+
+
+. ${HOME}/providerscripts/database/singledb/InstallSingleDB.sh ${DATABASE_INSTALLATION_TYPE}
+
