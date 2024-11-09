@@ -21,6 +21,11 @@
 #####################################################################################
 #set -x
 
+if ( [ ! -d ${HOME}/credentials ] )
+then
+        /bin/mkdir ${HOME}/credentials
+fi
+
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:DBaaS`" = "1" ] )
 then
     DBaaS_DBNAME="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'DBaaSDBNAME'`"
