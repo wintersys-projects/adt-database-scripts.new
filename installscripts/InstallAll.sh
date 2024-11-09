@@ -26,5 +26,4 @@ ${HOME}/installscripts/InstallGo.sh ${BUILDOS}
 
 ${HOME}/installscripts/InstallMonitoringGear.sh
 . ${HOME}/installscripts/InstallDatastoreTools.sh
-. ${HOME}/providerscripts/database/singledb/InstallSingleDB.sh ${DATABASE_INSTALLATION_TYPE}
 
