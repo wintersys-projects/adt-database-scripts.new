@@ -219,8 +219,8 @@ then
     export TZ=":${SERVER_TIMEZONE_CONTINENT}/${SERVER_TIMEZONE_CITY}"
 fi
 
-/bin/mkdir -p ${HOME}/credentials
-/bin/chmod 700 ${HOME}/credentials
+#/bin/mkdir -p ${HOME}/credentials
+#/bin/chmod 700 ${HOME}/credentials
 
 
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
