@@ -23,10 +23,10 @@
 
 if ( [ -f /usr/bin/mariadb-dump ] )
 then
-        mysql_dump="/usr/bin/mariadb-dump"
+        mysql_dump="/usr/bin/mariadb-dump --ssl"
         mysql="/usr/bin/mariadb"
 else
-        mysql_dump="/usr/bin/mysqldump"
+        mysql_dump="/usr/bin/mysqldump --set-gtid-purged=OFF --ssl-mode=REQUIRED --skip-column-statistics"
         mysql="/usr/bin/mysql"
 fi
 
@@ -65,14 +65,14 @@ then
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     
     tries="1"
-    ${mysql_dump} --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force --set-gtid-purged=OFF --ssl-mode=REQUIRED --skip-column-statistics -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
+    ${mysql_dump} --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
 
    # ${mysql_dump} --single-transaction --skip-lock-tables  -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     while ( [ "$?" != "0"  ] && [ "${tries}" -lt "5" ] )
     do
         /bin/sleep 10
         tries="`/usr/bin/expr ${tries} + 1`"
-        ${mysql_dump} --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force --set-gtid-purged=OFF --ssl-mode=REQUIRED --skip-column-statistics -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
+        ${mysql_dump} --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
 
        # ${mysql_dump} --single-transaction --skip-lock-tables -y --host=${HOST} --port=${DB_PORT} -u ${DB_U} -p${DB_P} ${DB_N} >> applicationDB.sql
     done
