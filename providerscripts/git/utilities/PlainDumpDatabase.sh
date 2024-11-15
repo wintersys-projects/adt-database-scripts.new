@@ -38,7 +38,7 @@ fi
 #The standard troop of SQL databases
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Maria`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:Maria`" = "1" ] )
 then    
-    /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
+  #  /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
     tries="1"
     #originally I just had --skip-lock-tables --single-transaction set
     ${mysql_dump} --compress --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force --set-gtid-purged=OFF --ssl-mode=REQUIRED --skip-column-statistics -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
@@ -56,14 +56,14 @@ then
         ${HOME}/providerscripts/email/SendEmail.sh "FAILED TO TAKE BACKUP" "I haven't been able to take a database backup, please investigate" "ERROR"
         exit
     fi
-    /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
+   # /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;" >> applicationDB.sql
 fi
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
 then
-    /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
+  #  /bin/echo "SET SESSION sql_require_primary_key = 0;" > applicationDB.sql
     tries="1"
     ${mysql_dump} --compress --skip-lock-tables --single-transaction --hex-blob --routines --triggers --events --force --set-gtid-purged=OFF --ssl-mode=REQUIRED --skip-column-statistics -y --port=${DB_PORT} --host=${HOST} -u ${DB_U} -p${DB_P} ${DB_N} | /bin/sed -e '1i SET SQL_REQUIRE_PRIMARY_KEY = 0;' -e '/SET @@SESSION.SQL_LOG_BIN= 0;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF;/d' -e '/SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC;/d' -e '/SET @@GLOBAL.GTID_PURGED=/,/;/d' -e '/SET @@GLOBAL.GTID_PURGED=.*;/d' >> applicationDB.sql
     while ( [ "$?" != "0"  ] && [ "${tries}" -lt "5" ] )
@@ -79,7 +79,7 @@ then
         ${HOME}/providerscripts/email/SendEmail.sh "FAILED TO TAKE BACKUP" "I haven't been able to take a database backup, please investigate" "ERROR"
         exit
     fi
-    /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
+ #   /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;" >> applicationDB.sql
 fi
