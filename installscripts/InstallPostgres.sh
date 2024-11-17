@@ -39,21 +39,21 @@ then
     #For postgres if it is already installed on the OS we default to the installed version otherwise we install the user's requested version
     if ( [ "${buildos}" = "ubuntu" ] )
     then    
-        version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
-        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
-        /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
-        ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart
+        postgres_version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common                          #####UBUNTU-POSTGRESQL-REPO#####
+        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh                                                    #####UBUNTU-POSTGRESQL-REPO#####
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${postgres_version}            #####UBUNTU-POSTGRESQL-REPO#####
+        /usr/bin/sudo -su postgres /usr/lib/postgresql/${postgres_version}/bin/postgres -D /var/lib/postgresql/${postgres_version}/main -c config_file=/etc/postgresql/${postgres_version}/main/postgresql.conf    #####UBUNTU-POSTGRESQL-REPO#####
+        ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart                                                   
     fi
   
     if ( [ "${buildos}" = "debian" ] && [ ! -f /usr/lib/postgresql ] )
     then   
-        version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common
-        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${version}
-        /usr/bin/sudo -su postgres /usr/lib/postgresql/${version}/bin/postgres -D /var/lib/postgresql/${version}/main -c config_file=/etc/postgresql/${version}/main/postgresql.conf
+        postgres_version="`${HOME}/providerscripts/utilities/ExtractBuildStyleValues.sh "POSTGRES" | /usr/bin/awk -F':' '{print $NF}'`"
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-common                            #####DEBIAN-POSTGRESQL-REPO#####
+        /usr/bin/yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh                                                        #####DEBIAN-POSTGRESQL-REPO#####
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install postgresql-${postgres_version}                        #####DEBIAN-POSTGRESQL-REPO#####
+        /usr/bin/sudo -su postgres /usr/lib/postgresql/${postgres_version}/bin/postgres -D /var/lib/postgresql/${postgres_version}/main -c config_file=/etc/postgresql/${postgres_version}/main/postgresql.conf    #####DEBIAN-POSTGRESQL-REPO#####
         ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart
     fi
 fi
