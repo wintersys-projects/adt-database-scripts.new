@@ -38,12 +38,12 @@ if ( [ "${apt}" != "" ] )
 then
     if ( [ "${buildos}" = "ubuntu" ] )
     then
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install libio-socket-ssl-perl
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install libio-socket-ssl-perl    #####UBUNTU-LIBSOCKETSSL-REPO#####
     fi
 
     if ( [ "${buildos}" = "debian" ] )
     then
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install libio-socket-ssl-perl
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install libio-socket-ssl-perl    #####DEBIAN-LIBSOCKETSSL-REPO#####
     fi
 fi
 
