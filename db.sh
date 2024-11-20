@@ -268,8 +268,11 @@ then
     if ( [ "${BASELINE_DB_REPOSITORY_NAME}" != "VIRGIN" ] )
     then
         export HOME=${HOMEDIR} && . ${HOME}/applicationdb/InstallApplicationDB.sh
-        #Perform any application specific customisations
-        . ${HOME}/providerscripts/application/CustomiseApplication.sh
+        #Perform any application specific customisations if we are deploying a baseline
+        if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh BUILDARCHIVECHOICE:baseline`" = "1" ] )
+        then
+            . ${HOME}/providerscripts/application/CustomiseApplication.sh
+        fi
     fi
 fi
 
@@ -285,29 +288,20 @@ fi
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
 
-/bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
->&2 /bin/echo "${0} Disabling password authenticator"
-/bin/echo "${0} `/bin/date`: Disabling password authentication" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
-/bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
+#/bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
+#>&2 /bin/echo "${0} Disabling password authenticator"
+#/bin/echo "${0} `/bin/date`: Disabling password authentication" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
+#/bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-/bin/sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
-/bin/sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+#/bin/sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+#/bin/sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 >&2 /bin/echo "${0} Changing our preferred SSH port"
 /bin/echo "${0} `/bin/date`: Changing to our preferred SSH port" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-#Double down on preventing logins as root. We already tried, but, make absolutely sure because we can't guarantee format of /etc/ssh/sshd_config
 
-#if ( [ -f /etc/systemd/system/ssh.service.d/00-socket.conf ] )
-#then
-#    /bin/rm /etc/systemd/system/ssh.service.d/00-socket.conf
-#    /bin/systemctl daemon-restart
-#fi
-
-#/bin/systemctl disable --now ssh.socket
-#/bin/systemctl enable --now ssh.service
 
 if ( [ "`/bin/grep '^#Port' /etc/ssh/sshd_config`" != "" ] || [ "`/bin/grep '^Port' /etc/ssh/sshd_config`" != "" ] )
 then
