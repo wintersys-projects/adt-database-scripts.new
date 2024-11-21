@@ -50,9 +50,9 @@ then
     then
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install gnupg    #####UBUNTU-MYSQLSERVER-REPO#####
         mysql_apt_config="`/usr/bin/wget -O- https://dev.mysql.com/downloads/repo/apt/ | /bin/grep -o mysql-apt-config.* | /usr/bin/head -1 | /bin/sed 's/deb.*/deb/g'`" #####UBUNTU-MYSQLSERVER-REPO#####
-        /usr/bin/wget https://dev.mysql.com/get/${mysql_apt_config}                             #####UBUNTU-MYSQLSERVER-REPO#####
-        DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}                    #####UBUNTU-MYSQLSERVER-REPO#####
-        /bin/rm ${mysql_apt_config}                                                               #####UBUNTU-MYSQLSERVER-REPO#####
+        /usr/bin/wget https://dev.mysql.com/get/${mysql_apt_config}                             #####UBUNTU-MYSQLSERVER-REPO-SKIP#####
+        DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}                    #####UBUNTU-MYSQLSERVER-REPO-SKIP#####
+        /bin/rm ${mysql_apt_config}                                                               #####UBUNTU-MYSQLSERVER-REPO-SKIP#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages     #####UBUNTU-MYSQLSERVER-REPO#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install mysql-server                    #####UBUNTU-MYSQLSERVER-REPO#####
     fi
@@ -61,9 +61,9 @@ then
     then    
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install gnupg    #####DEBIAN-MYSQLSERVER-REPO#####
         mysql_apt_config="`/usr/bin/wget -O- https://dev.mysql.com/downloads/repo/apt/ | /bin/grep -o mysql-apt-config.* | /usr/bin/head -1 | /bin/sed 's/deb.*/deb/g'`" #####DEBIAN-MYSQLSERVER-REPO#####
-        /usr/bin/wget https://dev.mysql.com/get/${mysql_apt_config}                             #####DEBIAN-MYSQLSERVER-REPO#####
-        DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}                    #####DEBIAN-MYSQLSERVER-REPO#####
-        /bin/rm ${mysql_apt_config}                                                                #####DEBIAN-MYSQLSERVER-REPO#####
+        /usr/bin/wget https://dev.mysql.com/get/${mysql_apt_config}                             #####DEBIAN-MYSQLSERVER-REPO-SKIP#####
+        DEBIAN_FRONTEND=noninteractive /usr/bin/dpkg -i ${mysql_apt_config}                    #####DEBIAN-MYSQLSERVER-REPO-SKIP#####
+        /bin/rm ${mysql_apt_config}                                                                #####DEBIAN-MYSQLSERVER-REPO-SKIP#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages #####DEBIAN-MYSQLSERVER-REPO#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y install mysql-server                #####DEBIAN-MYSQLSERVER-REPO#####
     fi
