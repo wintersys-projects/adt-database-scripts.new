@@ -234,30 +234,18 @@ cd /root
     
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Maria`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:Maria`" = "1" ] )
 then
-    if ( [ "${1}" = "force" ] )
-    then
-        . ${HOME}/providerscripts/database/singledb/mariadb/AdjustAccessForSnapshot.sh
-    fi
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallMariaDBClient.sh
     . ${HOME}/applicationdb/maria/InstallMariaDB.sh
 fi
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
 then
-    if ( [ "${1}" = "force" ] )
-    then
-        . ${HOME}/providerscripts/database/singledb/mariadb/AdjustAccessForSnapshot.sh
-    fi
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallMySQLClient.sh
     . ${HOME}/applicationdb/mysql/InstallMySQLDB.sh
 fi
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Postgres`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:Postgres`" = "1" ] )
 then
-    if ( [ "${1}" = "force" ] )
-    then
-        . ${HOME}/providerscripts/database/singledb/postgres/AdjustAccessForSnapshot.sh
-    fi
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallPostgresClient.sh
     . ${HOME}/applicationdb/postgres/InstallPostgresDB.sh
