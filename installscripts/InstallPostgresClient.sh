@@ -51,7 +51,7 @@ then
         /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.asc                #####UBUNTU-POSTGRESQLCLIENT-REPO#####
         /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list    #####UBUNTU-POSTGRESQLCLIENT-REPO#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages                                             #####UBUNTU-POSTGRESQLCLIENT-REPO####
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -y -qq install postgresql-client-`/bin/echo ${postgres_version} | /usr/bin/awk -F'.' '{print $1}'`    #####UBUNTU-POSTGRESQLCLIENT-REPO#####
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -y -qq install postgresql-client-`/bin/echo ${postgres_version}`                        #####UBUNTU-POSTGRESQLCLIENT-REPO#####
     fi
 
     if ( [ "${BUILDOS}" = "debian" ] )
@@ -60,7 +60,7 @@ then
         /usr/bin/wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | /usr/bin/sudo /usr/bin/tee /etc/apt/trusted.gpg.d/myrepo.ascq                #####DEBIAN-POSTGRESQLCLIENT-REPO#####
         /bin/echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | /usr/bin/sudo /usr/bin/tee /etc/apt/sources.list.d/pgdg.list    #####DEBIAN-POSTGRESQLCLIENT-REPO#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages                                             #####DEBIAN-POSTGRESQLCLIENT-REPO####
-        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -y -qq install postgresql-client-`/bin/echo ${postgres_version} | /usr/bin/awk -F'.' '{print $1}'`    #####DEBIAN-POSTGRESQLCLIENT-REPO#####
+        DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -y -qq install postgresql-client-`/bin/echo ${postgres_version}`                       #####DEBIAN-POSTGRESQLCLIENT-REPO#####
     fi
 fi
 
