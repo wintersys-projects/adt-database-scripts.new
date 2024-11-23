@@ -21,5 +21,12 @@
 #set -x
 
 IP="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'MYPUBLICIP'`"
+
+if ( [ "`/usr/bin/hostname -I | /bin/grep ${IP}`" = "" ] )
+then
+	IP="`/usr/bin/hostname -I | /usr/bin/awk '{print $1}'`"
+	${HOME}/providerscripts/utilities/StoreConfigValue.sh 'MYIP' "${IP}"
+fi
+
 /bin/echo ${IP}
 
