@@ -22,7 +22,7 @@
 
 export HOME=`/bin/cat /home/homedir.dat`
 WEBSITE_URL="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'WEBSITEURL'`"
-configbucket="${WEBSITE_URL}-config"
+configbucket="`/bin/echo "${WEBSITE_URL}"-config | /bin/sed 's/\./-/g'`"
 
 count="0"
 file="`/bin/echo ${1} | /usr/bin/awk -F'/' '{print $NF}'`" 
