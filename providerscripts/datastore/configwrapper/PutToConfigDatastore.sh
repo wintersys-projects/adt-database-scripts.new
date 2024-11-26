@@ -25,7 +25,7 @@ export HOME=`/bin/cat /home/homedir.dat`
 if ( [ "${3}" = "" ] || [ "${3}" = "recursive" ] )
 then
     WEBSITE_URL="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'WEBSITEURL'`"
-     configbucket="${WEBSITE_URL}-config"
+    configbucket="`/bin/echo "${WEBSITE_URL}"-config | /bin/sed 's/\./-/g'`"
 else
     configbucket="${3}"
 fi
