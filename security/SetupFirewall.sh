@@ -54,7 +54,7 @@ then
 	firewall="iptables"
 fi
 
-if ( [ "${firewall}" = "ufw" ] && [ -f ${HOME}/runtime/FIREWALL-ACTIVE ] )
+if ( [ "${firewall}" = "ufw" ] && [ ! -f ${HOME}/runtime/FIREWALL-ACTIVE ] )
 then
 	/usr/sbin/ufw reset
 	/usr/sbin/ufw delete allow 22/tcp
