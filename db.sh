@@ -226,6 +226,7 @@ ${HOME}/providerscripts/utilities/RunServiceCommand.sh ssh restart
 
 . ${HOME}/installscripts/InstallAll.sh 
 
+${HOME}/security/SetupFirewall.sh
 
 #>&2 /bin/echo "${0} Update.sh"
 #${HOME}/installscripts/Update.sh ${BUILDOS}
@@ -415,7 +416,7 @@ SERVER_USER_PASSWORD="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh '
 >&2 /bin/echo "${0} Setting up firewall and Rebooting after install"
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-${HOME}/security/SetupFirewall.sh
+#${HOME}/security/SetupFirewall.sh
 
 ${HOME}/providerscripts/utilities/CleanupAfterBuild.sh
 
