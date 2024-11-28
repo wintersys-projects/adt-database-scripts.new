@@ -21,19 +21,24 @@
 #set -x #THIS MUST NOT BE SWITCHED ON DURING NORMAL USE, SCRIPT BREAK
 #####################################################################
 
+if ( [ -f ${HOME}/runtime/FIREWALL-ACTIVE ] )
+then
+	exit
+fi
+
 if ( [ ! -d ${HOME}/logs/firewall ] )
 then
     /bin/mkdir -p ${HOME}/logs/firewall
 fi
 
-if ( [ ! -f ${HOME}/runtime/DATABASE_READY ] )
-then
-   exit
-fi
+#if ( [ ! -f ${HOME}/runtime/DATABASE_READY ] )
+#then
+#   exit
+#fi
 
 #This stream redirection is required for correct function, please do not remove
-exec >${HOME}/logs/firewall/FIREWALL_CONFIGURATION.log
-exec 2>&1
+#exec >${HOME}/logs/firewall/FIREWALL_CONFIGURATION.log
+#exec 2>&1
 
 /usr/sbin/ufw logging off
 
