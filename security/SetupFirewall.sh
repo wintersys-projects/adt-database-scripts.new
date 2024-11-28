@@ -88,6 +88,11 @@ ${HOME}/security/KnickersUp.sh
 
 . ${HOME}/providerscripts/utilities/SetupInfrastructureIPs.sh
 
+if ( [ "${firewall}" = "ufw" ] && [ -f ${HOME}/runtime/FIREWALL-ACTIVE ] )
+then
+	/usr/sbin/ufw reset
+fi
+
 updated="0"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh BUILDMACHINEVPC:0`" = "1" ] )
