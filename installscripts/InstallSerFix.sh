@@ -40,12 +40,13 @@ then
     then
         /bin/mkdir /root/scratch
     fi
+    
+    tarball_url="`/usr/bin/curl -L https://api.github.com/repos/astockwell/serfix/releases/latest | /usr/bin/jq -r '.tarball_url'`"
+    /usr/bin/wget -c ${tarball_url} -O- | /usr/bin/tar -xz -C /root/scratch
     cwd="`/usr/bin/pwd`"
-    cd /root/scratch
-    DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1  install -qq -y zip
-    /usr/bin/wget https://github.com/astockwell/serfix/releases/download/v0.2.0/serfix_0.2.0_linux_amd64.zip
-    /usr/bin/unzip serfix_0.2.0_linux_amd64.zip
-    /bin/mv serfix_0.2.0_linux_amd64 /usr/local/bin/serfix
+    cd /root/scratch/astock*
+    /usr/bin/go build serfix.go
+    /bin/mv serfix /usr/local/bin
     /bin/chmod 755 /usr/local/bin/serfix
     /bin/rm -r /root/scratch
     cd ${cwd}
@@ -57,12 +58,13 @@ then
     then
         /bin/mkdir /root/scratch
     fi
+    
+    tarball_url="`/usr/bin/curl -L https://api.github.com/repos/astockwell/serfix/releases/latest | /usr/bin/jq -r '.tarball_url'`"
+    /usr/bin/wget -c ${tarball_url} -O- | /usr/bin/tar -xz -C /root/scratch
     cwd="`/usr/bin/pwd`"
-    cd /root/scratch
-    DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1  install -qq -y zip
-    /usr/bin/wget https://github.com/astockwell/serfix/releases/download/v0.2.0/serfix_0.2.0_linux_amd64.zip
-    /usr/bin/unzip serfix_0.2.0_linux_amd64.zip
-    /bin/mv serfix_0.2.0_linux_amd64 /usr/local/bin/serfix
+    cd /root/scratch/astock*
+    /usr/bin/go build serfix.go
+    /bin/mv serfix /usr/local/bin
     /bin/chmod 755 /usr/local/bin/serfix
     /bin/rm -r /root/scratch
     cd ${cwd}
