@@ -36,23 +36,35 @@ fi
 
 if ( [ "${buildos}" = "ubuntu" ] )
 then
-    /bin/mkdir ${HOME}/serfix
-    cd ${HOME}/serfix
+    if ( [ ! -d /root/scratch ] )
+    then
+        /bin/mkdir /root/scratch
+    fi
+    cwd="`/usr/bin/pwd`"
+    cd /root/scratch
     DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1  install -qq -y zip
     /usr/bin/wget https://github.com/astockwell/serfix/releases/download/v0.2.0/serfix_0.2.0_linux_amd64.zip
     /usr/bin/unzip serfix_0.2.0_linux_amd64.zip
     /bin/mv serfix_0.2.0_linux_amd64 /usr/local/bin/serfix
     /bin/chmod 755 /usr/local/bin/serfix
+    /bin/rm -r /root/scratch
+    cd ${cwd}
 fi
 
 if ( [ "${buildos}" = "debian" ] )
 then
-    /bin/mkdir ${HOME}/serfix
-    cd ${HOME}/serfix
-    DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 install -qq -y zip
+    if ( [ ! -d /root/scratch ] )
+    then
+        /bin/mkdir /root/scratch
+    fi
+    cwd="`/usr/bin/pwd`"
+    cd /root/scratch
+    DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1  install -qq -y zip
     /usr/bin/wget https://github.com/astockwell/serfix/releases/download/v0.2.0/serfix_0.2.0_linux_amd64.zip
     /usr/bin/unzip serfix_0.2.0_linux_amd64.zip
     /bin/mv serfix_0.2.0_linux_amd64 /usr/local/bin/serfix
     /bin/chmod 755 /usr/local/bin/serfix
+    /bin/rm -r /root/scratch
+    cd ${cwd}
 fi
 
