@@ -69,4 +69,5 @@ then
         /usr/bin/systemctl start mariadb
         /usr/bin/systemctl enable mariadb
     fi
+    /bin/touch ${HOME}/runtime/installedsoftware/InstallMariaDBServer.sh				
 fi
