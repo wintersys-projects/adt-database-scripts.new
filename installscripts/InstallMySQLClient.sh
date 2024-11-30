@@ -65,4 +65,5 @@ then
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages #####DEBIAN-MYSQLCLIENT-REPO#####
 		DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60 -qq -y install mysql-client	#####DEBIAN-MYSQLCLIENT-REPO#####
 	fi
+     	/bin/touch ${HOME}/runtime/installedsoftware/InstallMySQLClient.sh
 fi
