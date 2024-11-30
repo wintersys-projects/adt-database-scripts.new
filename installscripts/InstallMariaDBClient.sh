@@ -57,4 +57,5 @@ then
         /usr/bin/curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-${mariadb_version}"    #####DEBIAN-MARIACLIENT-REPO#####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=60  -qq -y install mariadb-client                                                         #####DEBIAN-MARIACLIENT-REPO#####
     fi
+    /bin/touch ${HOME}/runtime/installedsoftware/InstallMariaDBClient.sh				
 fi
