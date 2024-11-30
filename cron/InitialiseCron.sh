@@ -44,6 +44,7 @@
 /bin/echo "30 3 * * 7 export HOME=${HOMEDIR} && ${HOME}/cron/BackupFromCron.sh 'WEEKLY' ${BUILD_IDENTIFIER}" >>/var/spool/cron/crontabs/root
 /bin/echo "30 4 1 * * export HOME=${HOMEDIR} && ${HOME}/cron/BackupFromCron.sh 'MONTHLY' ${BUILD_IDENTIFIER}" >>/var/spool/cron/crontabs/root
 /bin/echo "30 5 1 Jan,Mar,May,Jul,Sep,Nov * export HOME=${HOMEDIR} && ${HOME}/cron/BackupFromCron.sh 'BIMONTHLY' ${BUILD_IDENTIFIER}" >>/var/spool/cron/crontabs/root
+/bin/echo "22 4 * * *  export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/UpdateSoftware.sh" >> /var/spool/cron/crontabs/root
 
 /bin/echo "30 3 * * *  export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/RemoveExpiredLogs.sh" >> /var/spool/cron/crontabs/root
 
