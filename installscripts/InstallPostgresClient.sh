@@ -62,5 +62,6 @@ then
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -qq -y update --allow-change-held-packages                                             #####DEBIAN-POSTGRESQLCLIENT-REPO####
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 -y -qq install postgresql-client-`/bin/echo ${postgres_version}`                       #####DEBIAN-POSTGRESQLCLIENT-REPO#####
     fi
+	/bin/touch ${HOME}/runtime/installedsoftware/InstallPostgresClient.sh
 fi
 
