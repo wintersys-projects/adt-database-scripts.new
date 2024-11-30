@@ -45,5 +45,6 @@ then
     then
         DEBIAN_FRONTEND=noninteractive ${apt} -o DPkg::Lock::Timeout=-1 install -qq -y software-properties-common    #####DEBIAN-SOFTWAREPROPERTIES-REPO#####
     fi
+    /bin/touch ${HOME}/runtime/installedsoftware/InstallSoftwareProperties.sh
 fi
 
