@@ -69,4 +69,6 @@ then
     /bin/rm -r /root/scratch
     cd ${cwd}
 fi
+/bin/touch ${HOME}/runtime/installedsoftware/InstallSerFix.sh
+
 
