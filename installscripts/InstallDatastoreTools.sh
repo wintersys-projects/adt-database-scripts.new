@@ -87,6 +87,7 @@ then
   		fi	
 
   	fi
+       /bin/touch ${HOME}/runtime/installedsoftware/InstallDatastoreTools.sh				
 fi
     
 if ( [ -f ${HOME}/.s3cfg ] )
