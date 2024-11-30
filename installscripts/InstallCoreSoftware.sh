@@ -1,3 +1,8 @@
+if ( [ ! -d ${HOME}/runtime/installedsoftware ] )
+then
+  /bin/mkdir -p ${HOME}/runtime/installedsoftware
+fi
+
 >&2 /bin/echo "${0} UpdateAndUpgrade.sh"
 ${HOME}/installscripts/UpdateAndUpgrade.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallGo.sh"
