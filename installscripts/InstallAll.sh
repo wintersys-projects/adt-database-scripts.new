@@ -1,6 +1,7 @@
->&2 /bin/echo "${0} Update.sh"
-${HOME}/installscripts/Update.sh ${BUILDOS}
-
+>&2 /bin/echo "${0} UpdateAndUpgrade.sh"
+${HOME}/installscripts/UpdateAndUpgrade.sh ${BUILDOS}
+>&2 /bin/echo "${0} InstallGo.sh"
+${HOME}/installscripts/InstallGo.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallSoftwareProperties.sh"
 ${HOME}/installscripts/InstallSoftwareProperties.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallCurl.sh"
@@ -21,8 +22,7 @@ ${HOME}/installscripts/InstallRsync.sh ${BUILDOS}
 ${HOME}/installscripts/InstallJQ.sh ${BUILDOS}
 >&2 /bin/echo "${0} InstallCron.sh"
 ${HOME}/installscripts/InstallCron.sh ${BUILDOS}
->&2 /bin/echo "${0} InstallGo.sh"
-${HOME}/installscripts/InstallGo.sh ${BUILDOS}
+
 
 ${HOME}/installscripts/InstallMonitoringGear.sh
 . ${HOME}/installscripts/InstallDatastoreTools.sh
