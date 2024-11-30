@@ -56,5 +56,6 @@ then
         /usr/bin/sudo -su postgres /usr/lib/postgresql/${postgres_version}/bin/postgres -D /var/lib/postgresql/${postgres_version}/main -c config_file=/etc/postgresql/${postgres_version}/main/postgresql.conf    #####DEBIAN-POSTGRESQL-REPO#####
         ${HOME}/providerscripts/utilities/RunServiceCommand.sh postgresql restart
     fi
+	/bin/touch ${HOME}/runtime/installedsoftware/InstallPostgres.sh
 fi
 
