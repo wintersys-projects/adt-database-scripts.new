@@ -84,7 +84,7 @@ then
         exit
     fi
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
-    /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;" >> applicationDB.sql
+    /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4;" >> applicationDB.sql
     /bin/sed -i -- 's/http:\/\//https:\/\//g' applicationDB.sql
     /bin/sed -i "s/${DB_U}/XXXXXXXXXX/g" applicationDB.sql
     /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
