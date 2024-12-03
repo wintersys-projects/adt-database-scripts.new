@@ -59,6 +59,7 @@ then
    # /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4;" >> applicationDB.sql
+    ${HOME}/providerscripts/utilities/StandardiseMySQLCollations.sh ./applicationDB.sql
 fi
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
@@ -82,6 +83,7 @@ then
  #   /bin/sed -i '/SESSION.SQL_LOG_BIN/d' applicationDB.sql
     /bin/echo "DROP TABLE IF EXISTS \`zzzz\`;" >> applicationDB.sql
     /bin/echo "CREATE TABLE \`zzzz\` ( \`idxx\` int(10) unsigned NOT NULL, PRIMARY KEY (\`idxx\`) ) Engine=INNODB CHARSET=utf8mb4;" >> applicationDB.sql
+    ${HOME}/providerscripts/utilities/StandardiseMySQLCollations.sh ./applicationDB.sql
 fi
 
 #The Postgres SQL database
