@@ -30,7 +30,7 @@ IP="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'MYIP'`"
 if ( [ "`/usr/bin/hostname -I | /bin/grep ${IP}`" = "" ] )
 then
     IP="`/usr/bin/hostname -I | /usr/bin/awk '{print $2}'`"
-    ${HOME}/providerscripts/utilities/StoreConfigValueWebserver.sh 'MYIP' "${IP}"
+    ${HOME}/providerscripts/utilities/StoreConfigValue.sh 'MYIP' "${IP}"
 fi
 
 /bin/echo ${IP}
