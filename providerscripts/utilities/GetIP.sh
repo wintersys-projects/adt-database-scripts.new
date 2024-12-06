@@ -27,9 +27,14 @@ fi
 
 IP="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'MYIP'`"
 
+
 if ( [ "`/usr/bin/hostname -I | /bin/grep ${IP}`" = "" ] )
 then
     IP="`/usr/bin/hostname -I | /usr/bin/awk '{print $2}'`"
+ 	if ( [ "${IP}" = "" ] )
+  	then
+		IP="`/usr/bin/hostname -I | /usr/bin/awk '{print $1}'`"
+	fi
     ${HOME}/providerscripts/utilities/StoreConfigValue.sh 'MYIP' "${IP}"
 fi
 
