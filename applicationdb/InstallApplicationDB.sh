@@ -103,8 +103,7 @@ fi
 
 SUPERSAFE_DB="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SUPERSAFEDB'`"
 
-count=0
-while ( ( [ "`/bin/ls /installer/${BUILD_ARCHIVE_CHOICE}/ | /usr/bin/wc -l`" -lt "1" ] && [ ! -f /installer/${WEBSITE_NAME}-DB-full.tar.gz ] ) && [ "${count}" != "5" ] )
+while ( [ "`/bin/ls /installer/${BUILD_ARCHIVE_CHOICE}/ | /usr/bin/wc -l`" -lt "1" ] && [ ! -f /installer/${WEBSITE_NAME}-DB-full.tar.gz ] )
 do
     if ( [ -f /installer/.git ] )
     then
@@ -131,16 +130,7 @@ do
 
     elif ( [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
     then
-       if ( [ "${SUPERSAFE_DB}" = "0" ] || [ "${SUPERSAFE_DB}" = "1" ] )
-       then
-           DB_REPOSITORY_NAME="${WEBSITE_NAME}-db-${BUILD_ARCHIVE_CHOICE}-${BUILD_IDENTIFIER}"
-           ${HOME}/providerscripts/git/GitClone.sh ${APPLICATION_REPOSITORY_PROVIDER} ${APPLICATION_REPOSITORY_USERNAME} ${APPLICATION_REPOSITORY_PASSWORD} ${APPLICATION_REPOSITORY_OWNER} "${WEBSITE_SUBDOMAIN}-${DB_REPOSITORY_NAME}" .
-
-           /bin/cat /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-?? > /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db
-           /bin/rm /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-*
-           /bin/mv /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-00
-       fi
-       if ( ( [ "${SUPERSAFE_DB}" = "1" ] && [ ! -f /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-* ] ) || [ "${SUPERSAFE_DB}" = "2" ] )
+       if ( [ ! -f /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-* ] ) )
        then
            ${HOME}/providerscripts/datastore/GetFromDatastore.sh "${DATASTORE_CHOICE}" "`/bin/echo ${WEBSITE_URL} | /bin/sed 's/\./-/g'`-db-${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-DB-backup.tar.gz"
        elif ( [ -f /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-00 ] )
@@ -155,34 +145,7 @@ do
        
        /bin/rm /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-*
    fi
-   count="`/usr/bin/expr ${count} + 1`"
 done
-
-everythingok="0"
-    
-if ( [ "${SUPERSAFE_DB}" = "0" ] )
-then
-    if ( [ "${count}" = "5" ] && [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
-    then
-        /bin/echo "FAILED TO RETRIEVE DB SOURCE FROM REPOSITORY"
-        exit
-    fi
-elif ( [ "${SUPERSAFE_DB}" = "1" ] )
-then
-     if ( [ "${count}" = "5" ] && [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
-     then
-        /bin/echo "AM CONFIGURED TO TRY THE S3 DATASTORE SO WILL TRY THAT NEXT"
-     else 
-         everythingok="1"
-     fi
-elif ( ( [ "${SUPERSAFE_DB}" = "1" ] || [ "${SUPERSAFE_DB}" = "2" ] ) && [ "${everythingok}" = "0" ] )
-then
-     if ( [ ! -f  /installer/${WEBSITE_NAME}-DB-full.tar.gz ] && [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
-     then
-        /bin/echo "Will have to exit ... The END"
-        exit
-     fi
-fi
 
 /bin/mkdir -p ${HOME}/backups/installDB/
 
