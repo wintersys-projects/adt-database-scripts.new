@@ -101,8 +101,6 @@ then
     /bin/mkdir -p /installer/${BUILD_ARCHIVE_CHOICE}
 fi
 
-SUPERSAFE_DB="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SUPERSAFEDB'`"
-
 while ( [ "`/bin/ls /installer/${BUILD_ARCHIVE_CHOICE}/ | /usr/bin/wc -l`" -lt "1" ] && [ ! -f /installer/${WEBSITE_NAME}-DB-full.tar.gz ] )
 do
     if ( [ -f /installer/.git ] )
