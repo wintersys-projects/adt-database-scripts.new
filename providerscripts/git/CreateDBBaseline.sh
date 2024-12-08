@@ -83,7 +83,7 @@ DB_U="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "crede
 
 cd ${HOME}/backups
 
-. ${HOME}/providerscripts/git/utilities/PlainDumpDatabase.sh
+. ${HOME}/providerscripts/git/database/PlainDumpDatabase.sh
 
 . ${HOME}/providerscripts/application/branding/RemoveApplicationBranding.sh
 
