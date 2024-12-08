@@ -120,14 +120,9 @@ do
 
     if ( [ "${BUILD_ARCHIVE_CHOICE}" = "baseline" ] )
     then
-         if ( [ "${SUPERSAFE_DB}" = "0" ] || [ "${SUPERSAFE_DB}" = "1" ] )
-         then
              ${HOME}/providerscripts/git/GitClone.sh ${APPLICATION_REPOSITORY_PROVIDER} ${APPLICATION_REPOSITORY_USERNAME} ${APPLICATION_REPOSITORY_PASSWORD} ${APPLICATION_REPOSITORY_OWNER} "${BASELINE_DB_REPOSITORY_NAME}" .
-
             /bin/cat /installer/${BUILD_ARCHIVE_CHOICE}/application-db-?? > /installer/${BUILD_ARCHIVE_CHOICE}/application-db
             /bin/mv /installer/${BUILD_ARCHIVE_CHOICE}/application-db /installer/${BUILD_ARCHIVE_CHOICE}/application-db-00
-        fi
-
     elif ( [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
     then
        if ( [ ! -f /installer/${BUILD_ARCHIVE_CHOICE}/${WEBSITE_NAME}-db-* ] ) )
@@ -181,14 +176,16 @@ if ( [ "`/bin/ls ${HOME}/backups/installDB/latestDB.tar.gz`" != "" ] )
 then
     /bin/tar xvfz latestDB.tar.gz
     /bin/mv application* ${WEBSITE_NAME}DB.sql
-    if ( [ "`/bin/cat ${WEBSITE_NAME}DB.sql | /bin/wc -l`" -lt "10" ] )
+    if ( [ "`/bin/cat ${WEBSITE_NAME}DB.sql | /bin/wc -l`" -lt "10" ] && [ "`/bin/grep 'zzzz' ${WEBSITE_NAME}DB.sql`" = "" ] )
     then
        /bin/echo "Counldn't find a suitable database file. having to exit... The END"
+        ${HOME}/providerscripts/email/SendEmail.sh "INSTALLATION ERROR" "Couldn't find a suitable database dump file to install" "ERROR"
+
        exit
     fi
 elif ( [ "${BUILD_ARCHIVE_CHOICE}" != "virgin" ] )
 then
-    /bin/echo "Something went wrong with obtaining the DB archive, can't run without it.....The END"
+    ${HOME}/providerscripts/email/SendEmail.sh "INSTALLATION ERROR" "Couldn't find a suitable database dump file to install" "ERROR"
     exit
 fi
 
