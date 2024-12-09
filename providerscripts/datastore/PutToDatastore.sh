@@ -33,6 +33,12 @@ then
         datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} cp "
 fi
 
-${datastore_tool}  ${file_to_put} s3://${datastore_to_put_in}
+count="0"
+while ( [ "`${datastore_tool}  ${file_to_put} s3://${datastore_to_put_in} 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+do
+        /bin/sleep 5
+        count="`/usr/bin/expr ${count} + 1`"
+done 
+
 file="`/bin/echo ${file_to_put} | /usr/bin/awk -F'/' '{print $NF}'`"
 
