@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if ( [ -f ${HOME}/runtime/DATABASE_INSTALLED ] )
+then
+        exit
+fi
+
 db_prefix="`${HOME}/providerscripts/datastore/configwrapper/ListFromConfigDatastore.sh DBPREFIX:* | /usr/bin/awk -F':' '{print $NF}'`"
 command=""
 
