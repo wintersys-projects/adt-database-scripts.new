@@ -42,7 +42,7 @@ fi
 if ( [ "$3" = "recursive" ] )
 then
         count="0"
-        while ( [ "`${datastore_tool_1} $1 s3://${configbucket}/$2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool_1} $1 s3://${configbucket}/$2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
@@ -51,7 +51,7 @@ else
     if ( [ -f ${1} ] )
     then
         count="0"
-        while ( [ "`${datastore_tool} $1 s3://${configbucket}/$2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool} $1 s3://${configbucket}/$2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
@@ -59,7 +59,7 @@ else
     elif ( [ -f ./${1} ] )
     then
         count="0"
-        while ( [ "`${datastore_tool} ./$1 s3://${configbucket}/$2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool} ./$1 s3://${configbucket}/$2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
@@ -68,7 +68,7 @@ else
     elif ( [ -f /tmp/${1} ] )
     then
         count="0"
-        while ( [ "`${datastore_tool} /tmp/$1 s3://${configbucket}/$2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool} /tmp/$1 s3://${configbucket}/$2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
@@ -79,7 +79,7 @@ else
         /bin/mkdir -p /tmp/${directory}
         /bin/touch /tmp/$1
         count="0"
-        while ( [ "`${datastore_tool} /tmp/$1 s3://${configbucket}/$2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool} /tmp/$1 s3://${configbucket}/$2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
