@@ -36,5 +36,12 @@ then
         datastore_tool="/usr/bin/s5cmd --credentials-file /root/.s5cfg --endpoint-url https://${host_base} rm "
 fi
 
-${datastore_tool} s3://${configbucket}/$1
+count="0"
+while ( [ "`${datastore_tool} s3://${configbucket}/$1 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+do
+        /bin/sleep 5
+        count="`/usr/bin/expr ${count} + 1`"
+done 
+
+
 
