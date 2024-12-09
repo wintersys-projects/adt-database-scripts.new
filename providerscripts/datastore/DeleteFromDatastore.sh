@@ -20,8 +20,7 @@
 ###################################################################################
 #set -x
 
-datastore_provider="$1"
-file_to_delete="$2"
+file_to_delete="$1"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
