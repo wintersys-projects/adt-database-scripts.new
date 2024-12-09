@@ -20,9 +20,8 @@
 #######################################################################################
 #set -x
 
-datastore_provider="$1"
-original_object="$2"
-new_object="$3"
+original_object="$1"
+new_object="$2"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
