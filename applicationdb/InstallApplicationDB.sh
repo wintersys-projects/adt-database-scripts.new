@@ -194,7 +194,6 @@ then
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallMariaDBClient.sh
     . ${HOME}/applicationdb/maria/InstallMariaDB.sh
-    /bin/touch ${HOME}/runtime/DATABASE_INSTALLED
 
 fi
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
@@ -202,12 +201,10 @@ then
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallMySQLClient.sh
     . ${HOME}/applicationdb/mysql/InstallMySQLDB.sh
-    /bin/touch ${HOME}/runtime/DATABASE_INSTALLED
 fi
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:Postgres`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:Postgres`" = "1" ] )
 then
     . ${HOME}/providerscripts/application/branding/ApplyApplicationBranding.sh
     . ${HOME}/installscripts/InstallPostgresClient.sh
     . ${HOME}/applicationdb/postgres/InstallPostgresDB.sh
-    /bin/touch ${HOME}/runtime/DATABASE_INSTALLED
 fi
