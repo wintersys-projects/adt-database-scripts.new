@@ -36,13 +36,13 @@ if ( [ "`${datastore_tool} ls s3://${datastore_to_mount}`" != "" ] )
 then
     exit
 fi
-    
-${datastore_tool} mb s3://${datastore_to_mount}
 
-if ( [ "$?" = "0" ] )
-then
-    exit
-fi
-fi
+count="0"
+while ( [ "`${datastore_tool} mb s3://${datastore_to_mount} 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+do
+        /bin/sleep 5
+        count="`/usr/bin/expr ${count} + 1`"
+done 
+    
 
 
