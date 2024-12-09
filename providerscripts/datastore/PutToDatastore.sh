@@ -20,9 +20,8 @@
 #######################################################################################
 #set -x
 
-datastore_provider="$1"
-file_to_put="$2"
-datastore_to_put_in="$3"
+file_to_put="$1"
+datastore_to_put_in="$2"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
