@@ -72,7 +72,7 @@ DB_P="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "crede
 DB_U="`${HOME}/providerscripts/datastore/configwrapper/GetDBCredential.sh "credentials/shit" 3`"
 
 cd ${HOME}/backups
-. ${HOME}/providerscripts/database/utilities/BackupDatabase.sh
+. ${HOME}/providerscripts/database/BackupDatabase.sh
 cd ${HOME}/backups
 
 if ( [ ! -d ${HOME}/backups/${period} ] )
