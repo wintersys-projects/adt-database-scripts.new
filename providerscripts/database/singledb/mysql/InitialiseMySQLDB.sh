@@ -91,7 +91,7 @@ then
     done
 else
     #make sure database has been started and is available - this is local instance under our full control
-    ${HOME}/providerscripts/utilities/RunServiceCommand.sh mariadb start
+    ${HOME}/providerscripts/utilities/RunServiceCommand.sh mysql start
     #try with no password set
     /usr/bin/mysql -f -A < ${HOME}/runtime/initialiseDB.sql
 
