@@ -20,8 +20,8 @@
 ####################################################################################
 #set -x
 
-datastore_provider="$1"
-file_to_list="$2"
+
+file_to_list="$1"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckBuildStyle.sh 'DATASTORETOOL:s3cmd'`" = "1" ] )
 then
