@@ -40,7 +40,7 @@ fi
 count="0"
 while ( [ "`${datastore_tool} s3://${configbucket}/$1 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
 do
-        /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0}"
+        /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0} ${datastore_tool} s3://${configbucket}/$1 /tmp"
         /bin/sleep 5
         count="`/usr/bin/expr ${count} + 1`"
 done 
@@ -49,9 +49,9 @@ done
 if ( [ "$2" != "" ] )
 then
         count="0"
-        while ( [ "`${datastore_tool} s3://${configbucket}/$1 $2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool} s3://${configbucket}/$1 $2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
-                /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0}"
+                /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0} ${datastore_tool} s3://${configbucket}/$1 $2 "
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
         done 
@@ -60,9 +60,9 @@ fi
 if ( [ "$3" = "recursive" ] )
 then
         count="0"
-        while ( [ "`${datastore_tool_1} s3://${configbucket}/$1 $2 /tmp 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
+        while ( [ "`${datastore_tool_1} s3://${configbucket}/$1 $2 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
         do
-                /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0}"
+                /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0} ${datastore_tool_1} s3://${configbucket}/$1 $2"
                 /bin/sleep 5
                 count="`/usr/bin/expr ${count} + 1`"
         done  
