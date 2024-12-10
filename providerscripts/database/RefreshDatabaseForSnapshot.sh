@@ -28,5 +28,8 @@ then
         done
         command="${command} drop table zzzz;"
         ${HOME}/providerscripts/utilities/helperscripts/ConnectToLocalMySQL.sh "${command}"
+#***************************
+         /home/Xw5zLwphsRKe3l7tvpRX/providerscripts/datastore/configwrapper/DeleteFromConfigDatastore.sh APPLICATION_INSTALLED
+#*************************
         ${HOME}/applicationdb/InstallApplicationDB.sh
 fi
