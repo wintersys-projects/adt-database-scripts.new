@@ -20,7 +20,7 @@
 #Setup crontab
 
 #These scripts run every minute
-/bin/echo "*/1 * * * * export HOME=${HOMEDIR} && ${HOME}/providerscripts/utilities/PrimeCredentials.sh" >> /var/spool/cron/crontabs/root
+/bin/echo "*/1 * * * * export HOME=${HOMEDIR} && ${HOME}/providerscripts/database/PrimeCredentials.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "*/1 * * * * export HOME=${HOMEDIR} && ${HOME}/providerscripts/utilities/EnsureAccessForWebservers.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/PurgeDodgyMounts.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/datastore/ObtainBuildClientIP.sh" >> /var/spool/cron/crontabs/root
