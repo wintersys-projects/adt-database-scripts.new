@@ -35,6 +35,7 @@ fi
 count="0"
 while ( [ "`${datastore_tool}  ${file_to_put} s3://${datastore_to_put_in} 2>&1 >/dev/null | /bin/grep "ERROR"`" != "" ] && [ "${count}" -lt "5" ] )
 do
+        /bin/echo "An error has occured `/usr/bin/expr ${count} + 1` times in script ${0}"
         /bin/sleep 5
         count="`/usr/bin/expr ${count} + 1`"
 done 
