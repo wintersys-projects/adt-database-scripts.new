@@ -7,6 +7,8 @@ then
                 /bin/rm ${HOME}/runtime/CREDENTIALS_PRIMED
         fi
 
+ 	${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
+
         ${HOME}/providerscripts/datastore/configwrapper/GetFromConfigDatastore.sh dbp.dat ${HOME}/runtime/dbp.dat
         db_prefix="`/bin/cat ${HOME}/runtime/dbp.dat`"
         if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
