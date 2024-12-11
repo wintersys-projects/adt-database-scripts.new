@@ -53,7 +53,6 @@
 /bin/echo "@hourly export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/LoadMonitoring.sh" >> /var/spool/cron/crontabs/root
 
 /bin/echo "@daily export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/MonitorFreeDiskSpace.sh" >> /var/spool/cron/crontabs/root
-/bin/echo "@daily export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/PerformSoftwareUpdate.sh" >> /var/spool/cron/crontabs/root
 
 SERVER_TIMEZONE_CONTINENT="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SERVERTIMEZONECONTINENT'`"
 SERVER_TIMEZONE_CITY="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SERVERTIMEZONECITY'`"
@@ -64,7 +63,6 @@ SERVER_TIMEZONE_CITY="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh '
 /bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/GetIP.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/UpdateInfrastructure.sh" >>/var/spool/cron/crontabs/root
 /bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/LoadMonitoring.sh 'reboot'" >> /var/spool/cron/crontabs/root
-/bin/echo "@reboot export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/PerformSoftwareUpdate.sh" >> /var/spool/cron/crontabs/root
 
 
 if ( [ -f ${HOME}/runtime/POSTGRES_FROM_SOURCE ] )
