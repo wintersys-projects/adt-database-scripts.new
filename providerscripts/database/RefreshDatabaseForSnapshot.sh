@@ -2,7 +2,7 @@
 
 if ( [ -f ${HOME}/runtime/SNAPSHOT_BUILT ] )
 then
-        if ( [ "`/usr/bin/find ${HOME}/runtime/SNAPSHOT_BUILT -maxdepth 1 -mmin +10 -type f`" != "" ] )
+        if ( [ "`/usr/bin/find ${HOME}/runtime/SNAPSHOT_BUILT -maxdepth 1 -mmin -10 -type f`" != "" ] )
         then
                 exit
         fi
