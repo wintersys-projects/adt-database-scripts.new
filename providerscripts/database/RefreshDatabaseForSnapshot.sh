@@ -6,7 +6,6 @@ then
 fi
 
 ${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
-/bin/touch ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT
         
 if ( [ -f ${HOME}/runtime/CREDENTIALS_PRIMED ] )
 then
@@ -30,3 +29,5 @@ then
         export BUILD_ARCHIVE_CHOICE="`/bin/ls ${HOME}/runtime/BUILDARCHIVECHOICE:* | /usr/bin/awk -F':' '{print $NF}'`"
         ${HOME}/applicationdb/InstallApplicationDB.sh
 fi
+/bin/touch ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT
+
