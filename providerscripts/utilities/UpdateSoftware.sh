@@ -7,4 +7,3 @@ do
         /bin/sh ${HOME}/installscripts/${script} ${BUILDOS}
 done
 
-/usr/sbin/shutdown -r now
