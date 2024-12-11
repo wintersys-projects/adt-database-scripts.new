@@ -1,6 +1,6 @@
 #set -x
 
-if (  [ -f ${HOME}/runtime/GENERATING_SNAPSHOT ] || [ ! -f ${HOME}/runtime/SNAPSHOT_BUILT ] || [ -f ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT ] )
+if ( [ ! -f ${HOME}/runtime/SNAPSHOT_BUILT ] || [ -f ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT ] )
 then
         exit
 fi
