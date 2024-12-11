@@ -1,5 +1,10 @@
 #set -x
 
+if ( [ -f ${HOME}/runtime/DATABASE_APPLICATION_UPDATING ] )
+then
+        exit
+fi
+
 if ( [ -f ${HOME}/runtime/SNAPSHOT_BUILT ] )
 then
         if ( [ "`/usr/bin/find ${HOME}/runtime/SNAPSHOT_BUILT -maxdepth 1 -mmin -10 -type f`" != "" ] )
@@ -13,6 +18,8 @@ then
         exit
 fi
 
+/bin/touch ${HOME}/runtime/DATABASE_APPLICATION_UPDATING
+
 ${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
         
 if ( [ -f ${HOME}/runtime/CREDENTIALS_PRIMED ] )
@@ -22,6 +29,7 @@ fi
 
 ${HOME}/providerscripts/datastore/configwrapper/GetFromConfigDatastore.sh dbp.dat ${HOME}/runtime/dbp.dat
 db_prefix="`/bin/cat ${HOME}/runtime/dbp.dat`"
+BUILD_ARCHIVE_CHOICE="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BUILDARCHIVECHOICE'`"
 
 if ( [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEINSTALLATIONTYPE:MySQL`" = "1" ] || [ "`${HOME}/providerscripts/utilities/CheckConfigValue.sh DATABASEDBaaSINSTALLATIONTYPE:MySQL`" = "1" ] )
 then
@@ -34,8 +42,8 @@ then
         command="${command} drop table zzzz;"
         ${HOME}/providerscripts/utilities/helperscripts/ConnectToLocalMySQL.sh "${command}"
         ${HOME}/providerscripts/datastore/configwrapper/DeleteFromConfigDatastore.sh "APPLICATION_INSTALLED"
-        export BUILD_ARCHIVE_CHOICE="`/bin/ls ${HOME}/runtime/BUILDARCHIVECHOICE:* | /usr/bin/awk -F':' '{print $NF}'`"
         ${HOME}/applicationdb/InstallApplicationDB.sh
 fi
 /bin/touch ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT
+/bin/rm ${HOME}/runtime/DATABASE_APPLICATION_UPDATING
 
