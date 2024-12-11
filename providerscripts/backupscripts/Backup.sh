@@ -80,7 +80,10 @@ then
     /bin/mkdir ${HOME}/backups/${period}
 fi
 
-/bin/mv *${WEBSITE_NAME}-db* ${HOME}/backups/${period}
+if ( [ -f ${WEBSITE_NAME}-db* ] )
+then
+        /bin/mv *${WEBSITE_NAME}-db* ${HOME}/backups/${period}
+fi
 
 cd ${HOME}/backups/
 
