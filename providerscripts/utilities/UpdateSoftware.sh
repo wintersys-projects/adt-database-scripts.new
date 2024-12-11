@@ -14,4 +14,7 @@ done
 
 ${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
 
+ /usr/sbin/shutdown -r now
+
+
 
