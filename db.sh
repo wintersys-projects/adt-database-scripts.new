@@ -47,6 +47,16 @@ then
     /bin/mkdir ${HOME}/super
 fi
 
+if ( [ ! -d ${HOME}/.ssh ] )
+then
+    /bin/mkdir ${HOME}/.ssh
+fi
+
+if ( [ ! -d ${HOME}/runtime ] )
+then
+    /bin/mkdir ${HOME}/runtime
+fi
+
 /bin/mv ${HOME}/providerscripts/utilities/Super.sh ${HOME}/super
 /bin/chmod 400 ${HOME}/super/Super.sh
 
@@ -141,20 +151,6 @@ WEBSITE_DISPLAY_NAME_LOWER="`/bin/echo ${WEBSITE_DISPLAY_NAME} | /bin/sed 's/_/ 
 /bin/echo "BUILDOS:${BUILDOS}" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "##################BUILD ENVIRONMENT SETTINGS#######################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-
-#Setup the directory structure
-
-if ( [ ! -d ${HOME}/.ssh ] )
-then
-    /bin/mkdir ${HOME}/.ssh
-fi
-
-if ( [ ! -d ${HOME}/runtime ] )
-then
-    /bin/mkdir ${HOME}/runtime
-    /bin/chown ${SERVER_USER}:${SERVER_USER} ${HOME}/runtime
-    /bin/chmod 755 ${HOME}/runtime
-fi
 
 #Initialise Git
 /usr/bin/git config --global user.name "${GIT_USER}"
