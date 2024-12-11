@@ -30,7 +30,6 @@
 /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/MonitorForOverload.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/IsDatabaseUp.sh" >> /var/spool/cron/crontabs/root
 /bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/database/RefreshDatabaseForSnapshot.sh" >> /var/spool/cron/crontabs/root
-/bin/echo "*/1 * * * * export HOME="${HOMEDIR}" && ${HOME}/providerscripts/utilities/UpdateSoftwareForSnapshot.sh" >> /var/spool/cron/crontabs/root
 
 #These scripts run every 5 minutes
 /bin/echo "*/5 * * * * export HOME="${HOMEDIR}" && ${HOME}/security/MonitorFirewall.sh" >> /var/spool/cron/crontabs/root
