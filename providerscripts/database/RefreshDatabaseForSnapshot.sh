@@ -19,9 +19,6 @@ then
 fi
 
 /bin/touch ${HOME}/runtime/DATABASE_APPLICATION_UPDATING
-
-${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
-${HOME}/providerscripts/utilities/UpdateSoftware.sh
         
 if ( [ -f ${HOME}/runtime/CREDENTIALS_PRIMED ] )
 then
