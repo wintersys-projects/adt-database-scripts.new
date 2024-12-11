@@ -42,6 +42,9 @@ then
         ${HOME}/providerscripts/datastore/configwrapper/DeleteFromConfigDatastore.sh "APPLICATION_INSTALLED"
         ${HOME}/applicationdb/InstallApplicationDB.sh
 fi
+
+${HOME}/providerscripts/utilities/UpdateSoftware.sh "SNAPPED"
+
 /bin/touch ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT
 /bin/rm ${HOME}/runtime/DATABASE_APPLICATION_UPDATING
 
