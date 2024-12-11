@@ -6,7 +6,7 @@ then
 fi
 
 ${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
-/bin/touch ${HOME}/runtime/APPLICATION_UPDATED_FOR_SNAPSHOT
+/bin/touch ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT
         
 if ( [ -f ${HOME}/runtime/CREDENTIALS_PRIMED ] )
 then
