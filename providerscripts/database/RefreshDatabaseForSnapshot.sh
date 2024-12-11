@@ -1,6 +1,14 @@
 #set -x
 
-if ( [ ! -f ${HOME}/runtime/SNAPSHOT_BUILT ] || [ -f ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT ] )
+if ( [ -f ${HOME}/runtime/SNAPSHOT_BUILT ] )
+then
+        if ( [ "`/usr/bin/find ${HOME}/runtime/SNAPSHOT_BUILT -maxdepth 1 -mmin +10 -type f`" != "" ] )
+        then
+                exit
+        fi
+fi
+
+if ( [ -f ${HOME}/runtime/DATABASE_UPDATED_FOR_SNAPSHOT ] )
 then
         exit
 fi
