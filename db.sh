@@ -70,21 +70,11 @@ exec 1>>${HOME}/logs/${out_file}
 err_file="initialbuild/database-build-err-`/bin/date | /bin/sed 's/ //g'`"
 exec 2>>${HOME}/logs/${err_file}
 
-#Validate the parameters that have been passed
-if ( [ "$1" = "" ] || [ "$2" = "" ] )
-then
-    /bin/echo "Usage: ./db.sh <build archive choice> <server_user>" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
-    exit
-fi
+
 
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} `/bin/date`: Building a new database server" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
-
-#Load the configuration into memory for easy access
-BUILD_ARCHIVE_CHOICE="$1"
-SERVER_USER="$2"
-
 
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} `/bin/date`: Settting up build parameters" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
@@ -96,6 +86,7 @@ ${HOME}/providerscripts/utilities/StoreConfigValue.sh "BUILDARCHIVECHOICE" "${BU
 CLOUDHOST="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'CLOUDHOST'`"
 AUTOSCALERIP="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'ASIP'`"
 BUILD_IDENTIFIER="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BUILDIDENTIFIER'`"
+BUILD_ARCHIVE_CHOICE="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BUILDARCHIVECHOICE'`"
 ALGORITHM="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'ALGORITHM'`"
 WEBSITE_URL="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'WEBSITEURL'`"
 WEBSITE_DISPLAY_NAME="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'WEBSITEDISPLAYNAME' | /bin/sed 's/_/ /g'`"
@@ -115,6 +106,7 @@ SERVER_TIMEZONE_CONTINENT="`${HOME}/providerscripts/utilities/ExtractConfigValue
 SERVER_TIMEZONE_CITY="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SERVERTIMEZONECITY'`"
 BUILDOS="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'BUILDOS'`"
 SSH_PORT="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SSHPORT'`"
+SERVER_USER="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'SERVERUSER'`"
 
 #Non standard variable settings
 WEBSITE_NAME="`/bin/echo ${WEBSITE_URL} | /usr/bin/awk -F'.' '{print $2}'`"
