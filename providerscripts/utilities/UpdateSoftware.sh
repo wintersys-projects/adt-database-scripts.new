@@ -12,3 +12,6 @@ do
         /bin/sh ${HOME}/installscripts/${script} ${BUILDOS}
 done
 
+${HOME}/providerscripts/utilities/UpdateInfrastructure.sh
+
+
