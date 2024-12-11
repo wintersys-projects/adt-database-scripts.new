@@ -80,8 +80,6 @@ exec 2>>${HOME}/logs/${err_file}
 /bin/echo "${0} `/bin/date`: Settting up build parameters" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 /bin/echo "${0} #######################################################################################" >> ${HOME}/logs/initialbuild/BUILD_PROCESS_MONITORING.log
 
-${HOME}/providerscripts/utilities/StoreConfigValue.sh "BUILDARCHIVECHOICE" "${BUILD_ARCHIVE_CHOICE}"
-/bin/touch ${HOME}/runtime/BUILDARCHIVECHOICE:${BUILD_ARCHIVE_CHOICE}
 
 CLOUDHOST="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'CLOUDHOST'`"
 AUTOSCALERIP="`${HOME}/providerscripts/utilities/ExtractConfigValue.sh 'ASIP'`"
