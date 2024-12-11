@@ -27,5 +27,6 @@ then
         command="${command} drop table zzzz;"
         ${HOME}/providerscripts/utilities/helperscripts/ConnectToLocalMySQL.sh "${command}"
         ${HOME}/providerscripts/datastore/configwrapper/DeleteFromConfigDatastore.sh "APPLICATION_INSTALLED"
+        export BUILD_ARCHIVE_CHOICE="`/bin/ls ${HOME}/runtime/BUILDARCHIVECHOICE:* | /usr/bin/awk -F':' '{print $NF}'`"
         ${HOME}/applicationdb/InstallApplicationDB.sh
 fi
